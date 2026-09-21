@@ -1,0 +1,11 @@
+{
+  "name": "tcc-automacao",
+  "private": true,
+  "scripts": {
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down",
+    "infra:logs": "docker compose logs -f",
+    "mqtt:sub": "docker exec -it tcc-mosquitto mosquitto_sub -t 'tcc/#' -v",
+    "test:fsm": "g++ -std=c++17 -Wall -Wextra -Ifirmware/include firmware/test/fsm_test.cpp -o /tmp/fsm_test && /tmp/fsm_test"
+  }
+}

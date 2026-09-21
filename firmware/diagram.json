@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "author": "Alex Gabriel Alves Machado; Gabriel Pio da Silva",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-pir-motion-sensor", "id": "pir", "top": -140, "left": -230, "attrs": { "delayTime": "5" } },
+    { "type": "wokwi-dht22", "id": "dht", "top": -150, "left": -60, "attrs": { "temperature": "28", "humidity": "55" } },
+    { "type": "wokwi-photoresistor-sensor", "id": "ldr", "top": 180, "left": -280, "attrs": {} },
+    { "type": "wokwi-resistor", "id": "r1", "top": 40, "left": 180, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "ledLuz", "top": -20, "left": 280, "attrs": { "color": "yellow", "label": "Luz (relé)" } },
+    { "type": "wokwi-resistor", "id": "r2", "top": 100, "left": 180, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "ledHvac", "top": 60, "left": 280, "attrs": { "color": "blue", "label": "HVAC (IR)" } }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "pir:VCC", "esp:5V", "red", [] ],
+    [ "pir:GND", "esp:GND.1", "black", [] ],
+    [ "pir:OUT", "esp:27", "green", [] ],
+    [ "dht:VCC", "esp:3V3", "red", [] ],
+    [ "dht:GND", "esp:GND.1", "black", [] ],
+    [ "dht:SDA", "esp:15", "green", [] ],
+    [ "ldr:VCC", "esp:3V3", "red", [] ],
+    [ "ldr:GND", "esp:GND.1", "black", [] ],
+    [ "ldr:AO", "esp:34", "orange", [] ],
+    [ "esp:26", "r1:1", "gold", [] ],
+    [ "r1:2", "ledLuz:A", "gold", [] ],
+    [ "ledLuz:C", "esp:GND.2", "black", [] ],
+    [ "esp:25", "r2:1", "blue", [] ],
+    [ "r2:2", "ledHvac:A", "blue", [] ],
+    [ "ledHvac:C", "esp:GND.2", "black", [] ]
+  ],
+  "dependencies": {}
+}
