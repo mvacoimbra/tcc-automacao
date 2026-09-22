@@ -2,10 +2,18 @@
   "name": "tcc-automacao",
   "private": true,
   "scripts": {
+    "dev": "pnpm --parallel --filter @tcc/backend --filter @tcc/dashboard run dev",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "desktop:dev": "pnpm --parallel --filter @tcc/dashboard --filter @tcc/desktop run dev",
+    "desktop:dist": "pnpm --filter @tcc/dashboard build && pnpm --filter @tcc/desktop dist",
+    "firmware:build": "cd firmware && pio run",
+    "firmware:sim": "sh -c 'set -a; . ./.env; set +a; cd firmware && wokwi-cli --timeout 30000 --timeout-exit-code 0 .'",
     "infra:up": "docker compose up -d",
     "infra:down": "docker compose down",
     "infra:logs": "docker compose logs -f",
     "mqtt:sub": "docker exec -it tcc-mosquitto mosquitto_sub -t 'tcc/#' -v",
+    "mqtt:sub:publico": "docker exec -it tcc-mosquitto mosquitto_sub -h broker.hivemq.com -t 'tcc-unip-7f3a9c/#' -v",
     "test:fsm": "g++ -std=c++17 -Wall -Wextra -Ifirmware/include firmware/test/fsm_test.cpp -o /tmp/fsm_test && /tmp/fsm_test"
   }
 }

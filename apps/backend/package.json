@@ -1,0 +1,31 @@
+{
+  "name": "@tcc/backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Broker MQTT embutido, cliente MQTT, armazenamento, REST, WebSocket e simulador",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "tsx watch src/cli.ts",
+    "build": "tsc --noEmit -p .",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@tcc/contrato": "workspace:*",
+    "aedes": "^1.2.0",
+    "express": "^5.2.1",
+    "mqtt": "^5.16.0",
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.13.6",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
+  }
+}

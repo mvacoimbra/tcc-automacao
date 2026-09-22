@@ -1,0 +1,23 @@
+{
+  "name": "@tcc/contrato",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Esquemas zod e tipos do contrato MQTT, REST e WebSocket",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit -p .",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.6",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
+  }
+}

@@ -2,8 +2,3 @@
 version = 1
 firmware = '.pio/build/esp32dev/firmware.bin'
 elf = '.pio/build/esp32dev/firmware.elf'
-
-# Private IoT Gateway: permite ao ESP32 simulado acessar a máquina local
-# pelo hostname host.wokwi.internal (Mosquitto do docker-compose).
-[net]
-gateway = true

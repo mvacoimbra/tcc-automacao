@@ -5,14 +5,16 @@
 #define WIFI_PASS    ""
 #define WIFI_CHANNEL 6  // fixar o canal acelera a conexão no Wokwi
 
-// VS Code + Private Gateway: "host.wokwi.internal"
-// Simulador web (sem gateway): use um broker público, ex. "broker.hivemq.com"
-#define MQTT_HOST "host.wokwi.internal"
+// Broker público: o ESP32 simulado (wokwi-cli, sem VS Code nem Private Gateway)
+// só alcança a internet. O app assina o mesmo broker no modo "externo" (D09).
+// Como o broker é compartilhado, a raiz dos tópicos é única deste projeto.
+#define MQTT_HOST "broker.hivemq.com"
 #define MQTT_PORT 1883
 
+#define TOPIC_RAIZ   "tcc-unip-7f3a9c"
 #define DEVICE_ID    "sala01"
-#define TOPIC_ESTADO "tcc/" DEVICE_ID "/estado"
-#define TOPIC_CONFIG "tcc/" DEVICE_ID "/config"
+#define TOPIC_ESTADO TOPIC_RAIZ "/" DEVICE_ID "/estado"
+#define TOPIC_CONFIG TOPIC_RAIZ "/" DEVICE_ID "/config"
 
 // ---------- Pinos ----------
 #define PIN_PIR  27

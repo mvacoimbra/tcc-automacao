@@ -70,12 +70,13 @@ precisam dominar cada decisão técnica. Plágio reprova.
 ## Roadmap técnico
 
 ### Postagem 1 (até 28/09)
-- [x] Monorepo pnpm, docker-compose (Mosquitto + InfluxDB)
+- [x] Monorepo pnpm, docker-compose (Mosquitto, opcional)
 - [x] Firmware: 4 tasks FreeRTOS, FSM da Figura 3, MQTT, config remota
 - [x] Testes da FSM no PC (inclui estouro do `millis()`)
-- [ ] Compilar e rodar o firmware no Wokwi (validar `diagram.json` e o gateway)
-- [ ] `apps/backend`: Node + Express + TS — assina `tcc/+/estado`, grava no InfluxDB, calcula latência (`recebidoEm - ts`), detecta perda por `seq`, expõe REST + WebSocket
-- [ ] `apps/dashboard`: React + TS + Recharts — estado atual, gráficos de temperatura/lux, histórico de ocupação, formulário de config
+- [x] Compilar e rodar o firmware no Wokwi (`wokwi-cli`, broker público — D09; evidência em `docs/evidencias/`)
+- [x] `apps/backend`: Node + Express + TS — broker Aedes embutido, assina `<raiz>/+/estado`, grava no SQLite (D12), calcula latência (`recebidoEm - ts`), detecta perda por `seq`, expõe REST + WebSocket + CSV; modo Demo com a FSM portada (D14)
+- [x] `apps/dashboard`: React + TS + Recharts — Controladora (diagrama do circuito e da FSM), Histórico (gráficos, métricas, CSV), Configurações
+- [x] App desktop Electron com instalador `.dmg` (D10, D15)
 - [ ] Prints/diagramas para o Cap. 3
 - [ ] Rascunho do Cap. 3
 

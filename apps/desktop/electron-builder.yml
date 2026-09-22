@@ -1,0 +1,35 @@
+appId: br.unip.tcc.automacao
+# Nome de arquivo só em ASCII: no macOS o electron-builder grava o nome do .app, do
+# executável e dos Helpers normalizado em NFD, enquanto o CFBundleName fica em NFC.
+# Com "ç"/"ã" nesses nomes, o processo principal do app empacotado encerrava com
+# SIGTRAP ao iniciar os Helpers (reproduzido no macOS 27.0 beta, 26A428); com os
+# mesmos arquivos renomeados para NFC, abria normalmente. Ver D15 em docs/decisoes.md.
+# O nome com acentos continua visível no Dock/menu (CFBundleDisplayName) e na janela.
+productName: TCC Automacao
+directories:
+  output: release
+# O main já vem num arquivo só (tsup) e não há módulo nativo: basta o dist.
+files:
+  - dist/**
+  - package.json
+extraResources:
+  - from: ../dashboard/dist
+    to: dashboard
+npmRebuild: false
+mac:
+  target:
+    - target: dmg
+      arch: [arm64]
+  # Sem certificado de desenvolvedor (fora do escopo): sem assinatura própria.
+  # No primeiro uso, abrir pelo menu de contexto (não notarizado).
+  identity: null
+  extendInfo:
+    CFBundleDisplayName: TCC Automação
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+linux:
+  target:
+    - target: AppImage
+      arch: [x64]

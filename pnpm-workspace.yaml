@@ -1,2 +1,21 @@
 packages:
   - "apps/*"
+
+# pnpm 11 exige decisão explícita para todo pacote com script de instalação.
+# O electron baixa o binário no pós-instalação e o esbuild (usado por tsup/vite/tsx)
+# baixa o executável nativo. O electron-winstaller (dependência do electron-builder)
+# só serve ao instalador Squirrel.Windows; o alvo Windows do projeto é NSIS.
+allowBuilds:
+  electron: true
+  esbuild: true
+  electron-winstaller: false
+
+# pnpm 11.11.0 trava (sem erro nem CPU) ao instalar peers automaticamente no
+# electron-builder: app-builder-lib e dmg-builder são peers circulares entre si.
+# Com isto, peers exigidos precisam ser declarados nos package.json.
+autoInstallPeers: false
+
+# Peer só exigido pelo alvo Squirrel.Windows, que o projeto não usa.
+peerDependencyRules:
+  ignoreMissing:
+    - electron-builder-squirrel-windows

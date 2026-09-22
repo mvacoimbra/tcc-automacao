@@ -1,0 +1,24 @@
+{
+  "name": "@tcc/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Casca Electron do protótipo do TCC",
+  "main": "dist/main.cjs",
+  "scripts": {
+    "dev": "pnpm run bundle && electron .",
+    "bundle": "tsup",
+    "build": "tsc --noEmit -p . && pnpm run bundle",
+    "dist": "pnpm run build && electron-builder --config electron-builder.yml",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "node -e \"console.log('desktop: sem testes próprios; verificado pelo app empacotado (Task 7)')\""
+  },
+  "devDependencies": {
+    "@tcc/backend": "workspace:*",
+    "@tcc/contrato": "workspace:*",
+    "@types/node": "^24.13.6",
+    "electron": "^44.4.3",
+    "electron-builder": "^26.15.3",
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2"
+  }
+}
