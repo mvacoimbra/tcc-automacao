@@ -49,7 +49,7 @@ pnpm install
 pnpm --filter @tcc/desktop exec install-electron   # baixa o binário do Electron
 pnpm dev               # backend :3000 + dashboard (Vite) :5173 no navegador
 pnpm desktop:dev       # mesmo, dentro da janela do Electron
-pnpm desktop:dist      # gera apps/desktop/release/TCC Automacao-<versão>-arm64.dmg
+pnpm desktop:dist      # instalador do SO atual em apps/desktop/release/ (.dmg no macOS, -setup.exe no Windows)
 pnpm typecheck && pnpm test && pnpm test:fsm
 pnpm firmware:build    # cd firmware && pio run
 pnpm firmware:sim      # wokwi-cli por 30 s (precisa de WOKWI_CLI_TOKEN no .env)
@@ -57,6 +57,10 @@ pnpm infra:up          # Mosquitto :1883 (opcional)
 pnpm mqtt:sub          # observar tcc/# no Mosquitto local
 pnpm mqtt:sub:publico  # observar tcc-unip-7f3a9c/# no broker.hivemq.com
 ```
+
+CI (`.github/workflows/instaladores.yml`): testes a cada push/PR; instaladores macOS
+(arm64) e Windows (x64) sob demanda (`gh workflow run instaladores.yml`) ou numa tag
+`v<versão>` igual à de `apps/desktop/package.json`, que publica uma Release.
 
 ## Contrato MQTT
 

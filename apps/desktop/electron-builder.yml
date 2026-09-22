@@ -16,6 +16,13 @@ extraResources:
   - from: ../dashboard/dist
     to: dashboard
 npmRebuild: false
+# Quem publica os instaladores é o workflow do GitHub Actions (.github/workflows/
+# instaladores.yml); sem isto o electron-builder tenta publicar sozinho ao ver uma tag no CI.
+publish: null
+dmg:
+  artifactName: tcc-automacao-${version}-macos-${arch}.${ext}
+nsis:
+  artifactName: tcc-automacao-${version}-windows-${arch}-setup.${ext}
 mac:
   target:
     - target: dmg

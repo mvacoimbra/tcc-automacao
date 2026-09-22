@@ -51,16 +51,38 @@ pnpm typecheck && pnpm test   # pacotes TypeScript
 pnpm test:fsm                 # máquina de estados do firmware (g++)
 ```
 
-## Gerar o instalador (macOS)
+## Baixar o instalador
+
+Os instaladores ficam nas [Releases](https://github.com/mvacoimbra/tcc-automacao/releases)
+do repositório: `.dmg` para macOS (Apple Silicon) e `-setup.exe` para Windows (x64).
+Nenhum dos dois é assinado:
+
+- **macOS:** arraste o app para Aplicativos e abra pelo menu de contexto (botão direito →
+  **Abrir**). Se o macOS disser que o app "está danificado", rode
+  `xattr -dr com.apple.quarantine "/Applications/TCC Automacao.app"`.
+- **Windows:** no aviso do SmartScreen, clique em **Mais informações** → **Executar assim mesmo**.
+
+## Gerar o instalador localmente
 
 ```bash
 pnpm desktop:dist
 ```
 
-Gera `apps/desktop/release/TCC Automacao-0.1.0-arm64.dmg`. O app não é assinado nem
-notarizado: na primeira vez, abra-o pelo menu de contexto (botão direito → **Abrir**)
-e confirme. O histórico fica em `~/Library/Application Support/@tcc/desktop/`, a
-mesma pasta usada por `pnpm desktop:dev`.
+Gera o instalador do sistema atual em `apps/desktop/release/`
+(ex.: `tcc-automacao-0.1.0-macos-arm64.dmg`). No macOS, o histórico fica em
+`~/Library/Application Support/@tcc/desktop/`, a mesma pasta usada por `pnpm desktop:dev`.
+
+### Publicar uma versão (CI)
+
+O workflow `.github/workflows/instaladores.yml` roda os testes a cada push e gera os
+instaladores de macOS e Windows no GitHub Actions:
+
+```bash
+gh workflow run instaladores.yml      # só gera (artefatos na página da execução)
+git tag v0.1.0 && git push origin v0.1.0   # gera e publica uma Release
+```
+
+A tag precisa ser igual à `version` de `apps/desktop/package.json`.
 
 O app usa a porta HTTP 3000 e o broker MQTT na 1883; se alguma estiver ocupada, sobe
 em outra porta livre e mostra qual na tela **Configurações**, junto com o endereço

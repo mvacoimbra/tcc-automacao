@@ -1,0 +1,100 @@
+# Testes a cada push/PR; instaladores (macOS e Windows) sob demanda ou ao publicar uma
+# tag de versão (v0.1.0, v0.2.0...). Com tag, os instaladores viram uma Release no GitHub.
+# Os instaladores não rodam a cada push porque minutos de macOS custam 10x no plano
+# gratuito para repositório privado.
+name: Instaladores
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.11.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm test:fsm
+
+  instaladores:
+    needs: testes
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - so: macos
+            runner: macos-latest   # Apple Silicon: gera o .dmg arm64
+          - so: windows
+            runner: windows-latest # gera o instalador NSIS x64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.11.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      # A versão do app vem de apps/desktop/package.json; a tag precisa bater com ela.
+      - name: Conferir versão da tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        run: |
+          versao=$(node -p "require('./apps/desktop/package.json').version")
+          if [ "v$versao" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME diferente da versão v$versao em apps/desktop/package.json"
+            exit 1
+          fi
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm desktop:dist
+      - uses: actions/upload-artifact@v7
+        with:
+          name: instalador-${{ matrix.so }}
+          path: |
+            apps/desktop/release/*.dmg
+            apps/desktop/release/*.exe
+          if-no-files-found: error
+
+  release:
+    needs: instaladores
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          path: instaladores
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v3
+        with:
+          files: instaladores/*
+          generate_release_notes: true
+          body: |
+            Instaladores do protótipo (sem assinatura de código):
+            - **macOS (Apple Silicon):** `.dmg`. Se o macOS disser que o app "está danificado" ou
+              não pode ser aberto, rode `xattr -dr com.apple.quarantine "/Applications/TCC Automacao.app"`
+              depois de arrastá-lo para Aplicativos.
+            - **Windows (x64):** `-setup.exe`. No aviso do SmartScreen, clique em
+              "Mais informações" → "Executar assim mesmo".
