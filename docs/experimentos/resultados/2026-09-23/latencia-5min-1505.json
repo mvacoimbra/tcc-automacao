@@ -1,0 +1,36 @@
+{
+  "experimento": "CT-06 latência fim a fim e perda",
+  "inicio": 1790175631589,
+  "fim": 1790175931592,
+  "minutos": 5,
+  "url": "http://127.0.0.1:3000",
+  "caminho": "broker embutido (mesma máquina)",
+  "broker": {
+    "modo": "embutido",
+    "conectado": true,
+    "porta": 51281
+  },
+  "demo": true,
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 1.0136054421768708,
+      "p95Ms": 2,
+      "maxMs": 4,
+      "amostras": 147
+    },
+    "perda": {
+      "recebidas": 147,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 0,
+      "hvacMs": 0
+    },
+    "ocupacao": {
+      "transicoes": 0,
+      "tempoOcupadoMs": 0
+    }
+  }
+}
