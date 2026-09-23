@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-05 configuração remota: tOcupado de 10 s",
+  "arquivo": "docs/experimentos/roteiros/funcionais/ct05-config-remota-10s.json",
+  "executadoEm": 1790175765164,
+  "config": {
+    "tOcupadoMs": 10000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 100,
+    "duracaoMs": 40000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 0,
+    "tempoOcupadoMs": 15000,
+    "ocupacaoRealMs": 5000,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 10000,
+    "desocupadoIndevidoMs": 0,
+    "tempoLigado": {
+      "luzMs": 15000,
+      "hvacMs": 15000
+    },
+    "reducao": {
+      "luzPct": 62.5,
+      "hvacPct": 62.5
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 21
+    },
+    "perda": {
+      "recebidas": 21,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 15000,
+      "hvacMs": 15000
+    },
+    "ocupacao": {
+      "transicoes": 2,
+      "tempoOcupadoMs": 15000
+    }
+  }
+}

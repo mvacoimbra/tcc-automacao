@@ -219,3 +219,93 @@ export const MensagemWs = z.discriminatedUnion('tipo', [
   z.object({ tipo: z.literal('demo'), ativo: z.boolean() }),
 ])
 export type MensagemWs = z.infer<typeof MensagemWs>
+
+// ---------------------------------------------------------------------------
+// Roteiros de experimento (docs/experimentos/roteiros/*.json)
+// ---------------------------------------------------------------------------
+
+// Bloco de tempo em ms, meio aberto [de, ate), como a ocupação real dos
+// programas de referência (docs/experimentos/ct07_falsos_positivos.cpp).
+export const BlocoRoteiro = z.strictObject({
+  de: z.int().min(0),
+  ate: z.int().min(0),
+})
+export type BlocoRoteiro = z.infer<typeof BlocoRoteiro>
+
+// Um evento acontece em `t`. Pode injetar movimento (sozinho ou repetido até
+// `ate`, inclusive), trocar o ambiente e publicar uma nova configuração.
+//
+// `alinhamento` decide onde caem os movimentos repetidos: "inicio" conta a partir
+// de `t` (t, t+cada, ...) e "relogio" usa os múltiplos de `cada` no relógio do
+// roteiro. A distinção não é cosmética: no CT-09 o movimento é amarrado ao relógio
+// ((int)t % 8 == 0 no ct09_economia.cpp), então blocos que começam fora da grade
+// têm a primeira detecção alguns segundos depois — é de onde vem parte do tempo
+// desocupado indevidamente daquela tabela.
+export const EventoRoteiro = z
+  .strictObject({
+    t: z.int().min(0),
+    ate: z.int().min(0).optional(),
+    movimentoACada: z.int().min(1).optional(),
+    alinhamento: z.enum(['inicio', 'relogio']).default('inicio'),
+    movimento: z.boolean().optional(),
+    ambiente: AmbienteDemo.optional(),
+    config: ConfigPayload.optional(),
+  })
+  .refine((e) => e.ate === undefined || e.movimentoACada !== undefined, {
+    message: 'um evento com "ate" precisa de "movimentoACada"',
+  })
+  .refine((e) => e.ate === undefined || e.ate >= e.t, { message: '"ate" não pode ser antes de "t"' })
+export type EventoRoteiro = z.infer<typeof EventoRoteiro>
+
+export const RETENCAO_PIR_PADRAO_MS = 5000 // delayTime do PIR no diagrama do Wokwi
+
+export const Roteiro = z.strictObject({
+  nome: z.string().min(1),
+  descricao: z.string().optional(),
+  duracaoMs: z.int().min(1),
+  passoMs: z.int().min(1),
+  // Tempo que o PIR fica em alto após o último movimento (redisparável).
+  retencaoPirMs: z.int().min(0).default(RETENCAO_PIR_PADRAO_MS),
+  config: ConfigPayload.default({}),
+  ambienteInicial: z
+    .strictObject({
+      temperatura: z.number().min(-40).max(80),
+      umidade: z.number().min(0).max(100),
+      lux: z.number().min(0).max(100_000),
+    })
+    .default({ temperatura: 28, umidade: 55, lux: 120 }),
+  // Referência para as métricas de erro; ausente = cenário sem ocupação real.
+  ocupacaoReal: z.array(BlocoRoteiro).default([]),
+  eventos: z.array(EventoRoteiro).default([]),
+})
+export type Roteiro = z.infer<typeof Roteiro>
+
+// Métricas amostradas a cada passo do roteiro (o mesmo que os programas em C++
+// fazem), separadas das métricas por leitura publicada (`Metricas`).
+export const MetricasCenario = z.object({
+  passoMs: z.int().min(1),
+  duracaoMs: z.int().min(0),
+  ativou: z.boolean(),
+  atrasoAteOcupadoMs: z.number().nullable(), // do 1º movimento até o 1º OCUPADO
+  tempoOcupadoMs: z.number().min(0),
+  ocupacaoRealMs: z.number().min(0),
+  // OCUPADO fora da ocupação real, já descontada a cauda intencional
+  // (retenção do PIR + tOcupado) depois de cada saída, reportada à parte.
+  ocupadoIndevidoMs: z.number().min(0),
+  caudaMs: z.number().min(0),
+  desocupadoIndevidoMs: z.number().min(0),
+  tempoLigado: z.object({ luzMs: z.number().min(0), hvacMs: z.number().min(0) }),
+  // Linha de base: atuador ligado durante toda a janela do roteiro (acionamento manual).
+  reducao: z.object({ luzPct: z.number(), hvacPct: z.number() }),
+})
+export type MetricasCenario = z.infer<typeof MetricasCenario>
+
+export const ResultadoRoteiro = z.object({
+  roteiro: z.string(),
+  arquivo: z.string(),
+  executadoEm: z.int().min(0),
+  config: ConfigDispositivo,
+  cenario: MetricasCenario,
+  metricas: Metricas, // calculadas sobre as leituras publicadas, como no app
+})
+export type ResultadoRoteiro = z.infer<typeof ResultadoRoteiro>

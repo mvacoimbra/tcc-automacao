@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-03 limiares de luminosidade e de temperatura-alvo",
+  "arquivo": "docs/experimentos/roteiros/funcionais/ct03-limiares.json",
+  "executadoEm": 1790175765163,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 100,
+    "duracaoMs": 60000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 0,
+    "tempoOcupadoMs": 35000,
+    "ocupacaoRealMs": 35000,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 0,
+    "desocupadoIndevidoMs": 0,
+    "tempoLigado": {
+      "luzMs": 30000,
+      "hvacMs": 30000
+    },
+    "reducao": {
+      "luzPct": 50,
+      "hvacPct": 50
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 32
+    },
+    "perda": {
+      "recebidas": 32,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 30000,
+      "hvacMs": 30000
+    },
+    "ocupacao": {
+      "transicoes": 2,
+      "tempoOcupadoMs": 35000
+    }
+  }
+}

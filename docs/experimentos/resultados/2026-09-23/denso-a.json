@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-09 ocupação densa (sala de trabalho individual) — A janela desativada",
+  "arquivo": "docs/experimentos/roteiros/ct09/denso-a.json",
+  "executadoEm": 1790175765128,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 500,
+    "duracaoMs": 28800000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 0,
+    "tempoOcupadoMs": 26196000,
+    "ocupacaoRealMs": 26100000,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 108000,
+    "desocupadoIndevidoMs": 12000,
+    "tempoLigado": {
+      "luzMs": 26196000,
+      "hvacMs": 26196000
+    },
+    "reducao": {
+      "luzPct": 9.041666666666666,
+      "hvacPct": 9.041666666666666
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 14404
+    },
+    "perda": {
+      "recebidas": 14404,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 26194000,
+      "hvacMs": 26194000
+    },
+    "ocupacao": {
+      "transicoes": 8,
+      "tempoOcupadoMs": 26194000
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "passoMs": 100,
+  "retencaoPirMs": 5000,
+  "ambienteInicial": {
+    "temperatura": 28,
+    "umidade": 55,
+    "lux": 120
+  },
+  "config": {
+    "tOcupadoMs": 10000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "nome": "CT-05 configuração remota: tOcupado de 10 s",
+  "descricao": "Mesmo estímulo do CT-04 com tOcupadoMs = 10000 publicado por MQTT: a desocupação cai para 10 s após o fim do movimento.",
+  "duracaoMs": 40000,
+  "ocupacaoReal": [
+    {
+      "de": 10000,
+      "ate": 15000
+    }
+  ],
+  "eventos": [
+    {
+      "t": 10000
+    }
+  ]
+}

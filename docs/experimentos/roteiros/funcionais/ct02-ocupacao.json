@@ -1,0 +1,31 @@
+{
+  "passoMs": 100,
+  "retencaoPirMs": 5000,
+  "ambienteInicial": {
+    "temperatura": 28,
+    "umidade": 55,
+    "lux": 120
+  },
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "nome": "CT-02 movimento leva a OCUPADO e liga luz e HVAC",
+  "descricao": "Forma declarativa do primeiro estímulo de docs/experimentos/funcional.py: com 120 lux e 28 °C, o movimento ocupa a sala e aciona os dois atuadores.",
+  "duracaoMs": 30000,
+  "ocupacaoReal": [
+    {
+      "de": 10000,
+      "ate": 30000
+    }
+  ],
+  "eventos": [
+    {
+      "t": 10000
+    }
+  ]
+}

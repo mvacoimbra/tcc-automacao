@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-04 desocupação 30 s após o fim do movimento",
+  "arquivo": "docs/experimentos/roteiros/funcionais/ct04-desocupacao-30s.json",
+  "executadoEm": 1790175765164,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 100,
+    "duracaoMs": 60000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 0,
+    "tempoOcupadoMs": 35000,
+    "ocupacaoRealMs": 5000,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 30000,
+    "desocupadoIndevidoMs": 0,
+    "tempoLigado": {
+      "luzMs": 35000,
+      "hvacMs": 35000
+    },
+    "reducao": {
+      "luzPct": 41.666666666666664,
+      "hvacPct": 41.666666666666664
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 31
+    },
+    "perda": {
+      "recebidas": 31,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 35000,
+      "hvacMs": 35000
+    },
+    "ocupacao": {
+      "transicoes": 2,
+      "tempoOcupadoMs": 35000
+    }
+  }
+}

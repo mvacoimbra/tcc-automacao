@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-07 S2 duas passagens (60 s) — A janela desativada",
+  "arquivo": "docs/experimentos/roteiros/ct07/s2-a.json",
+  "executadoEm": 1790175765109,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 100,
+    "duracaoMs": 150000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 0,
+    "tempoOcupadoMs": 70000,
+    "ocupacaoRealMs": 0,
+    "ocupadoIndevidoMs": 70000,
+    "caudaMs": 0,
+    "desocupadoIndevidoMs": 0,
+    "tempoLigado": {
+      "luzMs": 70000,
+      "hvacMs": 70000
+    },
+    "reducao": {
+      "luzPct": 53.333333333333336,
+      "hvacPct": 53.333333333333336
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 77
+    },
+    "perda": {
+      "recebidas": 77,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 70000,
+      "hvacMs": 70000
+    },
+    "ocupacao": {
+      "transicoes": 4,
+      "tempoOcupadoMs": 70000
+    }
+  }
+}

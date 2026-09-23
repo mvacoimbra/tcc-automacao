@@ -7,6 +7,8 @@
     "test": "pnpm -r test",
     "desktop:dev": "pnpm --parallel --filter @tcc/dashboard --filter @tcc/desktop run dev",
     "desktop:dist": "pnpm --filter @tcc/dashboard build && pnpm --filter @tcc/desktop dist",
+    "exp": "pnpm --filter @tcc/backend exec tsx src/experimentos/cli.ts",
+    "exp:latencia": "pnpm --filter @tcc/backend exec tsx src/experimentos/latencia.ts",
     "firmware:build": "cd firmware && pio run",
     "firmware:sim": "sh -c 'set -a; . ./.env; set +a; cd firmware && wokwi-cli --timeout 30000 --timeout-exit-code 0 .'",
     "infra:up": "docker compose up -d",

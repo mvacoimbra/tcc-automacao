@@ -1,0 +1,72 @@
+{
+  "nome": "CT-09 ocupação densa (sala de trabalho individual) — D janela 10 s, 2 pulsos ou 7 s em alto",
+  "descricao": "Tempo de luz ligada numa jornada de 8 h ante a linha de base (interruptor manual). Porte de docs/experimentos/ct09_economia.cpp.",
+  "duracaoMs": 28800000,
+  "passoMs": 500,
+  "retencaoPirMs": 5000,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 10000,
+    "pulsosConf": 2,
+    "confirmacaoPorNivelMs": 7000
+  },
+  "ambienteInicial": {
+    "temperatura": 28,
+    "umidade": 55,
+    "lux": 120
+  },
+  "ocupacaoReal": [
+    {
+      "de": 0,
+      "ate": 3600000
+    },
+    {
+      "de": 3900000,
+      "ate": 7200000
+    },
+    {
+      "de": 7500000,
+      "ate": 14400000
+    },
+    {
+      "de": 16200000,
+      "ate": 25200000
+    },
+    {
+      "de": 25500000,
+      "ate": 28800000
+    }
+  ],
+  "eventos": [
+    {
+      "t": 0,
+      "ate": 3599999,
+      "movimentoACada": 8000,
+      "alinhamento": "relogio"
+    },
+    {
+      "t": 3900000,
+      "ate": 7199999,
+      "movimentoACada": 8000,
+      "alinhamento": "relogio"
+    },
+    {
+      "t": 7500000,
+      "ate": 14399999,
+      "movimentoACada": 8000,
+      "alinhamento": "relogio"
+    },
+    {
+      "t": 16200000,
+      "ate": 25199999,
+      "movimentoACada": 8000,
+      "alinhamento": "relogio"
+    },
+    {
+      "t": 25500000,
+      "ate": 28799999,
+      "movimentoACada": 8000,
+      "alinhamento": "relogio"
+    }
+  ]
+}

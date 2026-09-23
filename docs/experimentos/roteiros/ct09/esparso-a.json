@@ -1,0 +1,62 @@
+{
+  "nome": "CT-09 ocupação esparsa (sala de reuniões) — A janela desativada",
+  "descricao": "Tempo de luz ligada numa jornada de 8 h ante a linha de base (interruptor manual). Porte de docs/experimentos/ct09_economia.cpp.",
+  "duracaoMs": 28800000,
+  "passoMs": 500,
+  "retencaoPirMs": 5000,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0
+  },
+  "ambienteInicial": {
+    "temperatura": 28,
+    "umidade": 55,
+    "lux": 120
+  },
+  "ocupacaoReal": [
+    {
+      "de": 1800000,
+      "ate": 5400000
+    },
+    {
+      "de": 10800000,
+      "ate": 12600000
+    },
+    {
+      "de": 18000000,
+      "ate": 21600000
+    },
+    {
+      "de": 25200000,
+      "ate": 26100000
+    }
+  ],
+  "eventos": [
+    {
+      "t": 1800000,
+      "ate": 5399999,
+      "movimentoACada": 8000,
+      "alinhamento": "relogio"
+    },
+    {
+      "t": 10800000,
+      "ate": 12599999,
+      "movimentoACada": 8000,
+      "alinhamento": "relogio"
+    },
+    {
+      "t": 18000000,
+      "ate": 21599999,
+      "movimentoACada": 8000,
+      "alinhamento": "relogio"
+    },
+    {
+      "t": 25200000,
+      "ate": 26099999,
+      "movimentoACada": 8000,
+      "alinhamento": "relogio"
+    }
+  ]
+}

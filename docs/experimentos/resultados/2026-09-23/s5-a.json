@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-07 S5 permanencia, pessoa parada — A janela desativada",
+  "arquivo": "docs/experimentos/roteiros/ct07/s5-a.json",
+  "executadoEm": 1790175765117,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 100,
+    "duracaoMs": 150000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 0,
+    "tempoOcupadoMs": 35000,
+    "ocupacaoRealMs": 80000,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 0,
+    "desocupadoIndevidoMs": 45000,
+    "tempoLigado": {
+      "luzMs": 35000,
+      "hvacMs": 35000
+    },
+    "reducao": {
+      "luzPct": 76.66666666666667,
+      "hvacPct": 76.66666666666667
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 76
+    },
+    "perda": {
+      "recebidas": 76,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 35000,
+      "hvacMs": 35000
+    },
+    "ocupacao": {
+      "transicoes": 2,
+      "tempoOcupadoMs": 35000
+    }
+  }
+}

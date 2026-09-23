@@ -1,0 +1,55 @@
+{
+  "passoMs": 100,
+  "retencaoPirMs": 5000,
+  "ambienteInicial": {
+    "temperatura": 28,
+    "umidade": 55,
+    "lux": 120
+  },
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "nome": "CT-03 limiares de luminosidade e de temperatura-alvo",
+  "descricao": "Com a sala ocupada: acima de 300 lux a luz apaga e volta ao escurecer; com alvo de 30 °C o HVAC desliga e volta com 26 °C.",
+  "duracaoMs": 60000,
+  "ocupacaoReal": [
+    {
+      "de": 10000,
+      "ate": 45000
+    }
+  ],
+  "eventos": [
+    {
+      "t": 10000
+    },
+    {
+      "t": 20000,
+      "ambiente": {
+        "lux": 600
+      }
+    },
+    {
+      "t": 25000,
+      "ambiente": {
+        "lux": 120
+      }
+    },
+    {
+      "t": 30000,
+      "config": {
+        "tempAlvo": 30
+      }
+    },
+    {
+      "t": 35000,
+      "config": {
+        "tempAlvo": 26
+      }
+    }
+  ]
+}

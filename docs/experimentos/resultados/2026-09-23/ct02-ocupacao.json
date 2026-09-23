@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-02 movimento leva a OCUPADO e liga luz e HVAC",
+  "arquivo": "docs/experimentos/roteiros/funcionais/ct02-ocupacao.json",
+  "executadoEm": 1790175765163,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 100,
+    "duracaoMs": 30000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 0,
+    "tempoOcupadoMs": 20000,
+    "ocupacaoRealMs": 20000,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 0,
+    "desocupadoIndevidoMs": 0,
+    "tempoLigado": {
+      "luzMs": 20000,
+      "hvacMs": 20000
+    },
+    "reducao": {
+      "luzPct": 33.333333333333336,
+      "hvacPct": 33.333333333333336
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 15
+    },
+    "perda": {
+      "recebidas": 15,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 18000,
+      "hvacMs": 18000
+    },
+    "ocupacao": {
+      "transicoes": 1,
+      "tempoOcupadoMs": 18000
+    }
+  }
+}

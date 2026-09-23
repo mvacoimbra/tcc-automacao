@@ -51,6 +51,20 @@ pnpm typecheck && pnpm test   # pacotes TypeScript
 pnpm test:fsm                 # máquina de estados do firmware (g++)
 ```
 
+## Experimentos do Capítulo 4
+
+Os cenários do TCC são roteiros declarativos executados pelo próprio sistema, com
+relógio virtual (uma jornada de 8 h roda em menos de 1 s):
+
+```bash
+pnpm exp docs/experimentos/roteiros        # todos; ou .../roteiros/ct07 para um grupo
+pnpm exp:latencia --minutos 5              # CT-06: latência e perda, em tempo real
+```
+
+Os resultados vão para `docs/experimentos/resultados/<data>/` (CSV de leituras,
+JSON de métricas e um `resumo.csv` por execução). Detalhes em
+[`docs/experimentos/README.md`](docs/experimentos/README.md).
+
 ## Baixar o instalador
 
 Os instaladores ficam nas [Releases](https://github.com/mvacoimbra/tcc-automacao/releases)

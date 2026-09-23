@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-09 ocupação esparsa (sala de reuniões) — D janela 10 s, 2 pulsos ou 7 s em alto",
+  "arquivo": "docs/experimentos/roteiros/ct09/esparso-d.json",
+  "executadoEm": 1790175765157,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 10000,
+    "pulsosConf": 2,
+    "confirmacaoPorNivelMs": 7000,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 500,
+    "duracaoMs": 28800000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 8000,
+    "tempoOcupadoMs": 9980000,
+    "ocupacaoRealMs": 9900000,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 112000,
+    "desocupadoIndevidoMs": 32000,
+    "tempoLigado": {
+      "luzMs": 9980000,
+      "hvacMs": 9980000
+    },
+    "reducao": {
+      "luzPct": 65.34722222222223,
+      "hvacPct": 65.34722222222223
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 14404
+    },
+    "perda": {
+      "recebidas": 14404,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 9980000,
+      "hvacMs": 9980000
+    },
+    "ocupacao": {
+      "transicoes": 12,
+      "tempoOcupadoMs": 9980000
+    }
+  }
+}

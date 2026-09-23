@@ -5,7 +5,7 @@ import { randomBytes } from 'node:crypto'
 import { connectAsync } from 'mqtt'
 import type { AmbienteDemo, ConfigDispositivo, EstadoPayload } from '@tcc/contrato'
 import { CONFIG_PADRAO_DISPOSITIVO, aplicarConfigFirmware } from '../config-dispositivo'
-import { fsmStep, novoFsmState } from './fsm'
+import { novoEstadoDispositivo, passoDispositivo } from './nucleo'
 
 export type OpcoesDispositivoSimulado = {
   porta: number // porta do broker embutido
@@ -34,10 +34,8 @@ export async function iniciarDispositivoSimulado(opcoes: OpcoesDispositivoSimula
   // Estado do "dispositivo": mesmos valores iniciais do diagrama do Wokwi.
   let config: ConfigDispositivo = { ...CONFIG_PADRAO_DISPOSITIVO }
   let ambiente = { temperatura: 28, umidade: 55, lux: 120 }
-  const fsm = novoFsmState()
+  const dispositivo = novoEstadoDispositivo()
   let pirAte = -Infinity
-  let luz = false
-  let hvac = false
   let seq = 0
   let ultimaPublicacao = -Infinity
 
@@ -64,13 +62,13 @@ export async function iniciarDispositivoSimulado(opcoes: OpcoesDispositivoSimula
       dispositivo: ID_DISPOSITIVO,
       seq: seq++,
       ts: Date.now(),
-      estado: fsm.estado,
+      estado: dispositivo.fsm.estado,
       pir,
       temperatura: ambiente.temperatura,
       umidade: ambiente.umidade,
       lux: ambiente.lux,
-      luz,
-      hvac,
+      luz: dispositivo.luz,
+      hvac: dispositivo.hvac,
     }
     ultimaPublicacao = t
     cliente.publish(topicoEstado, JSON.stringify(estado), (erro) => {
@@ -83,13 +81,7 @@ export async function iniciarDispositivoSimulado(opcoes: OpcoesDispositivoSimula
   function ciclo(): void {
     const t = agora()
     const pir = t < pirAte
-    const mudouEstado = fsmStep(fsm, config, pir, t)
-    const ocupado = fsm.estado === 'OCUPADO'
-    const novaLuz = ocupado && ambiente.lux < config.luxLimiar
-    const novoHvac = ocupado && ambiente.temperatura > config.tempAlvo
-    const mudou = mudouEstado || novaLuz !== luz || novoHvac !== hvac
-    luz = novaLuz
-    hvac = novoHvac
+    const mudou = passoDispositivo(dispositivo, { pir, config, ambiente }, t)
     if (mudou || t - ultimaPublicacao >= PERIODO_PUBLICACAO_MS) publicar(t, pir)
   }
 

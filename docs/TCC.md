@@ -82,8 +82,9 @@ precisam dominar cada decisão técnica. Plágio reprova.
 
 ### Postagem 2 (13–19/10)
 - [ ] Protocolo da revisão, busca e seleção (diagrama PRISMA), fichas do Apêndice A
-- [ ] Plano de testes com cenários reproduzíveis (script que publica sequências de eventos)
-- [ ] Métricas: latência fim a fim, perda de mensagens, taxa de falsos positivos da FSM (com e sem janela), tempo de resposta do acionamento, estimativa de tempo de luz/HVAC ligados
+- [x] Plano de testes com cenários reproduzíveis: roteiros declarativos em `docs/experimentos/roteiros/`, executados por `pnpm exp` sobre o mesmo código do modo Demo (D16)
+- [x] Métricas: latência fim a fim e perda (`pnpm exp:latencia`, CT-06), falsos positivos/negativos da FSM com e sem janela (CT-07), atraso do acionamento e tempo de luz/HVAC ligados ante a linha de base (CT-09)
+- [ ] Ajuste no texto: usar os valores do executor (diferença de 0,1 s em relação aos programas em C++, explicada em D16)
 - [ ] Rascunho do Cap. 2 e resultados iniciais
 
 ### Postagem 3 (27/10–03/11)

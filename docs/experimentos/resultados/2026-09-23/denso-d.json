@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-09 ocupação densa (sala de trabalho individual) — D janela 10 s, 2 pulsos ou 7 s em alto",
+  "arquivo": "docs/experimentos/roteiros/ct09/denso-d.json",
+  "executadoEm": 1790175765141,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 10000,
+    "pulsosConf": 2,
+    "confirmacaoPorNivelMs": 7000,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 500,
+    "duracaoMs": 28800000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 8000,
+    "tempoOcupadoMs": 26156000,
+    "ocupacaoRealMs": 26100000,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 108000,
+    "desocupadoIndevidoMs": 52000,
+    "tempoLigado": {
+      "luzMs": 26156000,
+      "hvacMs": 26156000
+    },
+    "reducao": {
+      "luzPct": 9.180555555555555,
+      "hvacPct": 9.180555555555555
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 14404
+    },
+    "perda": {
+      "recebidas": 14404,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 26154000,
+      "hvacMs": 26154000
+    },
+    "ocupacao": {
+      "transicoes": 13,
+      "tempoOcupadoMs": 26154000
+    }
+  }
+}

@@ -40,6 +40,7 @@ apps/
   desktop/       @tcc/desktop — casca Electron + electron-builder (.dmg)
 infra/           configuração do Mosquitto (opcional, para o modo "broker externo")
 docs/            contexto do TCC, decisões, planos, evidências, PDFs de referência
+  experimentos/  roteiros do Cap. 4 (JSON), resultados e os programas de referência
 ```
 
 ## Comandos
@@ -51,6 +52,8 @@ pnpm dev               # backend :3000 + dashboard (Vite) :5173 no navegador
 pnpm desktop:dev       # mesmo, dentro da janela do Electron
 pnpm desktop:dist      # instalador do SO atual em apps/desktop/release/ (.dmg no macOS, -setup.exe no Windows)
 pnpm typecheck && pnpm test && pnpm test:fsm
+pnpm exp docs/experimentos/roteiros   # experimentos do Cap. 4 (roteiros declarativos)
+pnpm exp:latencia --minutos 5         # CT-06: latência e perda no pipeline real
 pnpm firmware:build    # cd firmware && pio run
 pnpm firmware:sim      # wokwi-cli por 30 s (precisa de WOKWI_CLI_TOKEN no .env)
 pnpm infra:up          # Mosquitto :1883 (opcional)

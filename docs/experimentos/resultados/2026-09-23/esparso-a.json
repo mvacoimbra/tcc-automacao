@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-09 ocupação esparsa (sala de reuniões) — A janela desativada",
+  "arquivo": "docs/experimentos/roteiros/ct09/esparso-a.json",
+  "executadoEm": 1790175765149,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 500,
+    "duracaoMs": 28800000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 0,
+    "tempoOcupadoMs": 10012000,
+    "ocupacaoRealMs": 9900000,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 112000,
+    "desocupadoIndevidoMs": 0,
+    "tempoLigado": {
+      "luzMs": 10012000,
+      "hvacMs": 10012000
+    },
+    "reducao": {
+      "luzPct": 65.23611111111111,
+      "hvacPct": 65.23611111111111
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 14404
+    },
+    "perda": {
+      "recebidas": 14404,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 10012000,
+      "hvacMs": 10012000
+    },
+    "ocupacao": {
+      "transicoes": 8,
+      "tempoOcupadoMs": 10012000
+    }
+  }
+}

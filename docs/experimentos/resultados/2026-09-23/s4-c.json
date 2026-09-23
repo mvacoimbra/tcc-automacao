@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-07 S4 permanencia, mov. a cada 8 s — C janela 20 s, 2 pulsos",
+  "arquivo": "docs/experimentos/roteiros/ct07/s4-c.json",
+  "executadoEm": 1790175765116,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 20000,
+    "pulsosConf": 2,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 100,
+    "duracaoMs": 150000,
+    "ativou": true,
+    "atrasoAteOcupadoMs": 8000,
+    "tempoOcupadoMs": 107000,
+    "ocupacaoRealMs": 80000,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 35000,
+    "desocupadoIndevidoMs": 8000,
+    "tempoLigado": {
+      "luzMs": 107000,
+      "hvacMs": 107000
+    },
+    "reducao": {
+      "luzPct": 28.666666666666668,
+      "hvacPct": 28.666666666666668
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 76
+    },
+    "perda": {
+      "recebidas": 76,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 107000,
+      "hvacMs": 107000
+    },
+    "ocupacao": {
+      "transicoes": 3,
+      "tempoOcupadoMs": 107000
+    }
+  }
+}

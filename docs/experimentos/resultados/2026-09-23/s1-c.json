@@ -1,0 +1,54 @@
+{
+  "roteiro": "CT-07 S1 passagem isolada — C janela 20 s, 2 pulsos",
+  "arquivo": "docs/experimentos/roteiros/ct07/s1-c.json",
+  "executadoEm": 1790175765109,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 20000,
+    "pulsosConf": 2,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "cenario": {
+    "passoMs": 100,
+    "duracaoMs": 150000,
+    "ativou": false,
+    "atrasoAteOcupadoMs": null,
+    "tempoOcupadoMs": 0,
+    "ocupacaoRealMs": 0,
+    "ocupadoIndevidoMs": 0,
+    "caudaMs": 0,
+    "desocupadoIndevidoMs": 0,
+    "tempoLigado": {
+      "luzMs": 0,
+      "hvacMs": 0
+    },
+    "reducao": {
+      "luzPct": 100,
+      "hvacPct": 100
+    }
+  },
+  "metricas": {
+    "latencia": {
+      "minMs": 0,
+      "mediaMs": 0,
+      "p95Ms": 0,
+      "maxMs": 0,
+      "amostras": 76
+    },
+    "perda": {
+      "recebidas": 76,
+      "perdidas": 0,
+      "taxa": 0
+    },
+    "tempoLigado": {
+      "luzMs": 0,
+      "hvacMs": 0
+    },
+    "ocupacao": {
+      "transicoes": 2,
+      "tempoOcupadoMs": 0
+    }
+  }
+}

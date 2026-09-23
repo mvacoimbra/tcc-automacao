@@ -1,0 +1,31 @@
+{
+  "nome": "CT-07 S3 permanencia, mov. continuo — B janela 10 s, 2 pulsos",
+  "descricao": "Falsos positivos e negativos da máquina de estados. Porte de docs/experimentos/ct07_falsos_positivos.cpp.",
+  "duracaoMs": 150000,
+  "passoMs": 100,
+  "retencaoPirMs": 5000,
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 10000,
+    "pulsosConf": 2,
+    "confirmacaoPorNivelMs": 0
+  },
+  "ambienteInicial": {
+    "temperatura": 28,
+    "umidade": 55,
+    "lux": 120
+  },
+  "ocupacaoReal": [
+    {
+      "de": 10000,
+      "ate": 90000
+    }
+  ],
+  "eventos": [
+    {
+      "t": 10000,
+      "ate": 90000,
+      "movimentoACada": 500
+    }
+  ]
+}

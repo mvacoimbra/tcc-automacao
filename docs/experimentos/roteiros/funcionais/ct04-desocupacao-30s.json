@@ -1,0 +1,31 @@
+{
+  "passoMs": 100,
+  "retencaoPirMs": 5000,
+  "ambienteInicial": {
+    "temperatura": 28,
+    "umidade": 55,
+    "lux": 120
+  },
+  "config": {
+    "tOcupadoMs": 30000,
+    "janelaConfMs": 0,
+    "pulsosConf": 1,
+    "confirmacaoPorNivelMs": 0,
+    "luxLimiar": 300,
+    "tempAlvo": 26
+  },
+  "nome": "CT-04 desocupação 30 s após o fim do movimento",
+  "descricao": "Pulso isolado do PIR (5 s de retenção): a sala volta a DESOCUPADO 30 s depois do sensor baixar.",
+  "duracaoMs": 60000,
+  "ocupacaoReal": [
+    {
+      "de": 10000,
+      "ate": 15000
+    }
+  ],
+  "eventos": [
+    {
+      "t": 10000
+    }
+  ]
+}
