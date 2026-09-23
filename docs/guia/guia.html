@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Guia do protótipo — TCC Automação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  /* Paleta do próprio dashboard (apps/dashboard/src/estilos.css), para o guia e o app
+     parecerem a mesma coisa. */
+  :root {
+    --texto: #17212b;
+    --texto-suave: #4b5a69;
+    --borda: #d3dae1;
+    --fundo-suave: #f3f5f7;
+    --acento: #0b6b73;
+    --acento-forte: #08525a;
+    --acento-suave: #d8eef0;
+    --ocupado: #11683f;
+    --ocupado-fundo: #dff3e8;
+    --confirmando: #7a4f00;
+    --confirmando-fundo: #fff1cc;
+    --desocupado: #4b5a69;
+    --desocupado-fundo: #e9edf1;
+    --luz: #f2b705;
+    --hvac: #2f7de1;
+    --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", Menlo, Consolas, monospace;
+  }
+
+  @page {
+    size: A4;
+    margin: 20mm 18mm 22mm 18mm;
+    @bottom-left { content: "Guia do protótipo — TCC Automação"; font: 7.5pt "IBM Plex Sans", Arial, sans-serif; color: #4b5a69; }
+    @bottom-right { content: counter(page) " / " counter(pages); font: 7.5pt "IBM Plex Sans", Arial, sans-serif; color: #4b5a69; }
+  }
+  @page :first {
+    margin: 0;
+    @bottom-left { content: none; }
+    @bottom-right { content: none; }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: var(--texto);
+    background: #fff;
+  }
+
+  /* ---------- Capa ---------- */
+  .capa {
+    height: 297mm;
+    padding: 34mm 24mm 26mm;
+    display: flex;
+    flex-direction: column;
+    background: var(--acento-forte);
+    color: #fff;
+    page-break-after: always;
+  }
+  .capa__instituicao { font-size: 10pt; letter-spacing: .08em; text-transform: uppercase; opacity: .85; margin: 0; }
+  .capa__titulo { font-size: 30pt; line-height: 1.12; font-weight: 700; margin: 34mm 0 6mm; max-width: 150mm; }
+  .capa__subtitulo { font-size: 14pt; font-weight: 400; margin: 0; max-width: 140mm; opacity: .92; }
+  .capa__faixa { height: 3px; width: 40mm; background: var(--luz); margin: 12mm 0; }
+  .capa__autores { margin-top: auto; font-size: 11pt; line-height: 1.7; }
+  .capa__autores strong { font-weight: 600; }
+  .capa__rodape { margin-top: 10mm; font-size: 9.5pt; opacity: .8; display: flex; justify-content: space-between; }
+
+  /* ---------- Texto ---------- */
+  h1 {
+    font-size: 19pt;
+    line-height: 1.2;
+    color: var(--acento-forte);
+    margin: 0 0 5mm;
+    padding-bottom: 2.5mm;
+    border-bottom: 1.5px solid var(--acento);
+    page-break-after: avoid;
+  }
+  h1 .num { color: var(--texto-suave); font-weight: 500; margin-right: 3mm; }
+  section.capitulo { page-break-before: always; }
+  h2 { font-size: 13pt; margin: 5mm 0 2mm; color: var(--texto); page-break-after: avoid; }
+  h3 { font-size: 11pt; margin: 5mm 0 1.5mm; page-break-after: avoid; }
+  p { margin: 0 0 3mm; }
+  ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+  li { margin-bottom: 1.2mm; }
+  strong { font-weight: 600; }
+  code, .mono { font-family: var(--mono); font-size: 9pt; }
+  code { background: var(--fundo-suave); padding: .2mm 1.2mm; border-radius: 2px; }
+  .suave { color: var(--texto-suave); }
+  .lead { font-size: 11.5pt; color: var(--texto); }
+
+  pre {
+    font-family: var(--mono);
+    font-size: 8.6pt;
+    line-height: 1.5;
+    background: var(--fundo-suave);
+    border: 1px solid var(--borda);
+    border-radius: 3px;
+    padding: 3mm 4mm;
+    margin: 0 0 4mm;
+    white-space: pre-wrap;
+    page-break-inside: avoid;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+
+  table { width: 100%; border-collapse: collapse; margin: 1mm 0 5mm; font-size: 9.5pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { text-align: left; vertical-align: top; padding: 1.4mm 2.5mm; border-bottom: 1px solid var(--borda); }
+  th { font-weight: 600; background: var(--fundo-suave); border-bottom: 1.5px solid var(--borda); }
+  td code { font-size: 8.5pt; }
+
+  .quadro {
+    border: 1px solid var(--borda);
+    border-left: 3px solid var(--acento);
+    background: #fafbfc;
+    padding: 3mm 4mm;
+    margin: 0 0 4mm;
+    page-break-inside: avoid;
+  }
+  .quadro--aviso { border-left-color: var(--confirmando); background: #fffaf0; }
+  .quadro p:last-child, .quadro ul:last-child { margin-bottom: 0; }
+  .quadro__titulo { font-weight: 600; margin-bottom: 1mm; display: block; }
+
+  figure { margin: 2mm 0 5mm; page-break-inside: avoid; }
+  figure img, figure svg { display: block; width: 100%; height: auto; border: 1px solid var(--borda); border-radius: 3px; }
+  figure svg { border: none; }
+  /* Capturas mais altas que a página: limita a altura e centraliza. */
+  figure.alta img { width: auto; max-width: 100%; max-height: 160mm; margin: 0 auto; }
+  figure.media img { width: auto; max-width: 100%; max-height: 100mm; margin: 0 auto; }
+  figure.media figcaption { text-align: center; }
+  figure.diagrama svg { width: 88%; margin: 0 auto; }
+  figure.diagrama--estreito svg { width: 76%; }
+  figure.diagrama figcaption { text-align: center; }
+  /* mantém título, texto e tabela/código na mesma página */
+  .bloco { page-break-inside: avoid; }
+  figure.alta figcaption { text-align: center; }
+  figcaption { font-size: 9pt; color: var(--texto-suave); margin-top: 1.5mm; }
+  figcaption strong { color: var(--texto); }
+
+  .passos { counter-reset: passo; list-style: none; padding-left: 0; }
+  .passos > li { counter-increment: passo; position: relative; padding-left: 9mm; margin-bottom: 1.6mm; }
+  .passos > li::before {
+    content: counter(passo);
+    position: absolute; left: 0; top: .2mm;
+    width: 5.5mm; height: 5.5mm; border-radius: 50%;
+    background: var(--acento); color: #fff;
+    font-size: 8.5pt; font-weight: 600; text-align: center; line-height: 5.5mm;
+  }
+
+  .duas-colunas { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .estado { display: inline-block; font-family: var(--mono); font-size: 8.5pt; font-weight: 500; padding: .3mm 1.8mm; border-radius: 2px; }
+  .estado--D { color: var(--desocupado); background: var(--desocupado-fundo); }
+  .estado--C { color: var(--confirmando); background: var(--confirmando-fundo); }
+  .estado--O { color: var(--ocupado); background: var(--ocupado-fundo); }
+
+  .sumario { list-style: none; padding: 0; margin: 0; columns: 1; }
+  .sumario li { display: flex; gap: 4mm; padding: 2mm 0; border-bottom: 1px dotted var(--borda); margin: 0; }
+  .sumario .num { width: 7mm; color: var(--acento-forte); font-weight: 600; }
+  .sumario small { color: var(--texto-suave); display: block; }
+</style>
+</head>
+<body>
+
+<!-- ============================ CAPA ============================ -->
+<div class="capa">
+  <p class="capa__instituicao">UNIP — Universidade Paulista · Ciência da Computação · Polo Anápolis</p>
+  <h1 class="capa__titulo" style="border:none;color:#fff;padding:0">Sistema automatizado de controle de iluminação e temperatura baseado em presença</h1>
+  <p class="capa__subtitulo">Guia do protótipo: o que foi construído, como funciona por dentro e como usar o aplicativo</p>
+  <div class="capa__faixa"></div>
+  <div class="capa__autores">
+    <strong>Autores:</strong> Alex Gabriel Alves Machado e Gabriel Pio da Silva<br>
+    <strong>Orientadora:</strong> Profa. Dra. Vanessa Santos Lessa<br>
+    Trabalho de Curso II
+  </div>
+  <div class="capa__rodape"><span>Anápolis, setembro de 2026</span><span>Protótipo versão 0.1.0</span></div>
+</div>
+
+<!-- ============================ SUMÁRIO ============================ -->
+<section>
+  <h1>Sumário</h1>
+  <ol class="sumario">
+    <li><span class="num">1</span><span>O trabalho em resumo<small>Tema, método e o que o protótipo entrega</small></span></li>
+    <li><span class="num">2</span><span>Arquitetura do sistema<small>Do sensor ao dashboard: as peças e como conversam</small></span></li>
+    <li><span class="num">3</span><span>A lógica de ocupação<small>A máquina de estados da Figura 3 e as regras de luz e HVAC</small></span></li>
+    <li><span class="num">4</span><span>Instalação<small>macOS, Windows e a partir do código-fonte</small></span></li>
+    <li><span class="num">5</span><span>Usando o aplicativo<small>Controladora, ajustes, modo Demo, Histórico e Configurações</small></span></li>
+    <li><span class="num">6</span><span>Firmware real no Wokwi<small>O ESP32 simulado enviando dados para o aplicativo</small></span></li>
+    <li><span class="num">7</span><span>Métricas e exportação<small>O que é medido para o Capítulo 4 e o formato do CSV</small></span></li>
+    <li><span class="num">8</span><span>Contrato MQTT<small>Tópicos e mensagens trocados entre dispositivo e aplicativo</small></span></li>
+    <li><span class="num">9</span><span>Decisões técnicas<small>O que mudou em relação ao modelo do TC I, e por quê</small></span></li>
+    <li><span class="num">10</span><span>Limitações<small>O que o protótipo não cobre e deve ser declarado no texto</small></span></li>
+    <li><span class="num">11</span><span>Para quem vai mexer no código<small>Estrutura do repositório e comandos</small></span></li>
+  </ol>
+</section>
+
+<!-- ============================ 1 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">1</span>O trabalho em resumo</h1>
+
+  <p class="lead">O projeto automatiza a iluminação e a climatização de uma sala a partir da presença de pessoas: a luz só acende e o ar-condicionado só liga quando há alguém no ambiente, e desligam sozinhos quando a sala fica vazia.</p>
+
+  <h2>Método</h2>
+  <p>O trabalho combina <strong>revisão integrativa de literatura</strong> com uma <strong>prova de conceito</strong>. O TC I propôs um modelo arquitetural preliminar (Figuras 2 e 3 do pré-projeto). No TC II esse modelo é tratado como hipótese:</p>
+  <ol>
+    <li>o protótipo implementa o modelo do TC I tal como foi proposto;</li>
+    <li>a revisão integrativa (literatura de 2016 a 2026) confronta esse modelo;</li>
+    <li>os ajustes no protótipo que a revisão justificar são o resultado do trabalho;</li>
+    <li>o Capítulo 4 compara o protótipo inicial, o ajustado e os valores da literatura.</li>
+  </ol>
+
+  <h2>O que o protótipo entrega</h2>
+  <table>
+    <thead><tr><th style="width:30%">Parte</th><th>O que faz</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Firmware do ESP32</strong></td><td>Lê o sensor de presença (PIR), temperatura e umidade (DHT22) e luminosidade (LDR); decide pela máquina de estados; aciona a luz e o ar-condicionado; publica o estado por MQTT. Roda no simulador Wokwi.</td></tr>
+      <tr><td><strong>Aplicativo desktop</strong></td><td>Instalável no macOS e no Windows. Recebe as leituras, guarda o histórico, calcula as métricas e mostra tudo num painel com o diagrama do circuito e da máquina de estados.</td></tr>
+      <tr><td><strong>Modo Demo</strong></td><td>Um dispositivo simulado dentro do aplicativo, com a mesma máquina de estados do firmware, para demonstrar o sistema sem Wokwi, sem internet e sem hardware.</td></tr>
+      <tr><td><strong>Exportação de dados</strong></td><td>Todas as leituras exportáveis em CSV, com latência e perda de mensagens por leitura, para as análises do Capítulo 4.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="quadro">
+    <span class="quadro__titulo">Por que simulação e não hardware?</span>
+    <p>O trabalho não usa placa nem sensores físicos: o ESP32 roda no Wokwi, um simulador de microcontroladores. O código do firmware é o mesmo que rodaria numa placa real; o que muda é que não há ruído de sensor nem a rede local de um prédio. Essa escolha é uma limitação declarada (seção 10).</p>
+  </div>
+</section>
+
+<!-- ============================ 2 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">2</span>Arquitetura do sistema</h1>
+
+  <p>A arquitetura é a do TC I: <strong>dispositivo → MQTT → backend Node/Express → WebSocket → dashboard React</strong>. O aplicativo desktop apenas empacota o backend e o dashboard num programa só, para abrir com dois cliques.</p>
+
+  <figure class="diagrama">
+    <svg viewBox="0 0 700 352" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, Arial, sans-serif" role="img" aria-label="Diagrama da arquitetura">
+      <defs>
+        <marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#4b5a69"/>
+        </marker>
+      </defs>
+      <!-- Dispositivos -->
+      <rect x="10" y="40" width="165" height="118" rx="6" fill="#ffffff" stroke="#78879a"/>
+      <text x="92" y="64" text-anchor="middle" font-size="13" font-weight="600" fill="#17212b">ESP32 (Wokwi)</text>
+      <text x="92" y="84" text-anchor="middle" font-size="10.5" fill="#4b5a69">FreeRTOS · 4 tarefas</text>
+      <text x="92" y="104" text-anchor="middle" font-size="10.5" fill="#4b5a69">PIR · DHT22 · LDR</text>
+      <text x="92" y="124" text-anchor="middle" font-size="10.5" fill="#4b5a69">LED luz · LED HVAC</text>
+      <text x="92" y="146" text-anchor="middle" font-size="9.5" fill="#4b5a69">firmware real</text>
+
+      <rect x="10" y="190" width="165" height="100" rx="6" fill="#ffffff" stroke="#78879a" stroke-dasharray="5 3"/>
+      <text x="92" y="216" text-anchor="middle" font-size="13" font-weight="600" fill="#17212b">Dispositivo simulado</text>
+      <text x="92" y="236" text-anchor="middle" font-size="10.5" fill="#4b5a69">modo Demo, dentro</text>
+      <text x="92" y="252" text-anchor="middle" font-size="10.5" fill="#4b5a69">do aplicativo</text>
+      <text x="92" y="274" text-anchor="middle" font-size="9.5" fill="#4b5a69">mesma FSM do firmware</text>
+
+      <!-- Brokers -->
+      <rect x="215" y="55" width="120" height="88" rx="6" fill="#fff1cc" stroke="#7a4f00"/>
+      <text x="275" y="82" text-anchor="middle" font-size="12" font-weight="600" fill="#17212b">Broker público</text>
+      <text x="275" y="100" text-anchor="middle" font-size="10" fill="#4b5a69">broker.hivemq.com</text>
+      <text x="275" y="118" text-anchor="middle" font-size="10" fill="#4b5a69">raiz tcc-unip-7f3a9c</text>
+
+      <!-- App -->
+      <rect x="370" y="14" width="320" height="330" rx="8" fill="#d8eef0" stroke="#0b6b73" stroke-width="1.5"/>
+      <text x="530" y="332" text-anchor="middle" font-size="12.5" font-weight="700" fill="#08525a">Aplicativo desktop (Electron)</text>
+
+      <rect x="386" y="52" width="288" height="152" rx="6" fill="#ffffff" stroke="#0b6b73"/>
+      <text x="398" y="73" font-size="12" font-weight="600" fill="#17212b">Backend (Node.js)</text>
+      <rect x="398" y="84" width="128" height="30" rx="4" fill="#f3f5f7" stroke="#d3dae1"/>
+      <text x="462" y="103" text-anchor="middle" font-size="10" fill="#17212b">broker MQTT embutido</text>
+      <rect x="534" y="84" width="128" height="30" rx="4" fill="#f3f5f7" stroke="#d3dae1"/>
+      <text x="598" y="103" text-anchor="middle" font-size="10" fill="#17212b">cliente MQTT</text>
+      <rect x="398" y="122" width="128" height="30" rx="4" fill="#f3f5f7" stroke="#d3dae1"/>
+      <text x="462" y="141" text-anchor="middle" font-size="10" fill="#17212b">banco SQLite</text>
+      <rect x="534" y="122" width="128" height="30" rx="4" fill="#f3f5f7" stroke="#d3dae1"/>
+      <text x="598" y="141" text-anchor="middle" font-size="10" fill="#17212b">métricas</text>
+      <rect x="398" y="160" width="264" height="30" rx="4" fill="#f3f5f7" stroke="#d3dae1"/>
+      <text x="530" y="179" text-anchor="middle" font-size="10" fill="#17212b">Express (REST + CSV) · WebSocket /ws</text>
+
+      <rect x="386" y="236" width="288" height="66" rx="6" fill="#ffffff" stroke="#0b6b73"/>
+      <text x="530" y="260" text-anchor="middle" font-size="12" font-weight="600" fill="#17212b">Dashboard (React + Recharts)</text>
+      <text x="530" y="280" text-anchor="middle" font-size="10" fill="#4b5a69">na janela do app ou no navegador/celular</text>
+
+      <!-- Setas -->
+      <path d="M175,99 L213,99" stroke="#4b5a69" stroke-width="1.4" marker-end="url(#seta)" fill="none"/>
+            <path d="M300,55 C330,4 640,4 640,82" stroke="#7a4f00" stroke-width="1.4" marker-end="url(#seta)" fill="none"/>
+      <text x="226" y="48" font-size="9" fill="#7a4f00">modo externo</text>
+      <path d="M175,240 C300,240 330,110 396,106" stroke="#4b5a69" stroke-width="1.4" marker-end="url(#seta)" fill="none"/>
+      <text x="180" y="226" font-size="9" fill="#4b5a69">modo embutido</text>
+      <path d="M530,204 L530,234" stroke="#0b6b73" stroke-width="1.6" marker-end="url(#seta)" fill="none"/>
+      <text x="538" y="224" font-size="9" fill="#08525a">WebSocket + REST</text>
+    </svg>
+    <figcaption><strong>Figura 1.</strong> Arquitetura do protótipo. O firmware real publica no broker público; o dispositivo simulado (Demo) publica no broker embutido. Em ambos os casos o backend recebe como um cliente MQTT comum.</figcaption>
+  </figure>
+
+  <h2>As peças</h2>
+  <table>
+    <thead><tr><th style="width:26%">Peça</th><th>Papel</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Firmware</strong><br><span class="suave">C++ · FreeRTOS</span></td><td>Quatro tarefas: <em>aquisição</em> (lê os sensores), <em>decisão</em> (roda a máquina de estados a cada 100 ms), <em>atuação</em> (acende e apaga os LEDs) e <em>comunicação</em> (Wi-Fi, MQTT e horário via NTP). Publica o estado a cada 2 s e a cada mudança, e aceita novos parâmetros por MQTT sem reiniciar.</td></tr>
+      <tr><td><strong>Broker MQTT</strong></td><td>Intermedia as mensagens. O aplicativo tem um broker próprio (embutido, não precisa instalar nada) e também sabe se conectar a um broker externo, como o público usado pelo firmware no Wokwi.</td></tr>
+      <tr><td><strong>Backend</strong><br><span class="suave">Node.js · Express</span></td><td>Recebe e valida as mensagens, calcula latência e perda, grava no banco SQLite, serve a API REST e a exportação CSV, e transmite as novidades ao dashboard em tempo real por WebSocket.</td></tr>
+      <tr><td><strong>Dashboard</strong><br><span class="suave">React · Recharts</span></td><td>Três telas: Controladora (tempo real), Histórico (gráficos e métricas) e Configurações. O mesmo endereço abre no navegador de outro computador ou celular da rede local.</td></tr>
+      <tr><td><strong>Aplicativo desktop</strong><br><span class="suave">Electron</span></td><td>Liga o backend quando o programa abre, mostra o dashboard numa janela e desliga tudo de forma limpa ao fechar. É o que se instala a partir do <code>.dmg</code> ou do <code>.exe</code>.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============================ 3 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">3</span>A lógica de ocupação</h1>
+
+  <p>O coração do sistema é a máquina de estados da Figura 3 do TC I, que decide se a sala está ocupada. Ela é a mesma no firmware (C++) e no modo Demo (TypeScript), e os dois passam pelo mesmo conjunto de 9 testes.</p>
+
+  <figure class="diagrama diagrama--estreito">
+    <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, Arial, sans-serif" role="img" aria-label="Máquina de estados de ocupação">
+      <defs>
+        <marker id="s2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4b5a69"/></marker>
+      </defs>
+      <g fill="none" stroke="#4b5a69" stroke-width="1.4">
+        <path d="M170,110 L243,110" marker-end="url(#s2)"/>
+        <path d="M395,110 L468,110" marker-end="url(#s2)"/>
+        <path d="M95,80 C95,22 545,22 545,78" marker-end="url(#s2)"/>
+        <path d="M545,140 C545,240 60,240 60,142" marker-end="url(#s2)"/>
+        <path d="M300,140 C300,172 130,172 130,142" marker-end="url(#s2)" stroke-dasharray="4 3"/>
+      </g>
+      <g font-size="10.5" fill="#4b5a69" text-anchor="middle">
+        <text x="207" y="100">movimento</text>
+        <text x="431" y="100">N detecções</text>
+        <text x="320" y="36">movimento (sem janela de confirmação)</text>
+        <text x="302" y="236">sem movimento por tOcupado</text>
+        <text x="215" y="188">janela expirou</text>
+      </g>
+      <rect x="20" y="80" width="150" height="60" rx="30" fill="#e9edf1" stroke="#4b5a69" stroke-width="1.5"/>
+      <text x="95" y="115" text-anchor="middle" font-size="12.5" font-weight="600" fill="#4b5a69">DESOCUPADO</text>
+      <rect x="245" y="80" width="150" height="60" rx="30" fill="#fff1cc" stroke="#7a4f00" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <text x="320" y="115" text-anchor="middle" font-size="12.5" font-weight="600" fill="#7a4f00">CONFIRMANDO</text>
+      <rect x="470" y="80" width="150" height="60" rx="30" fill="#dff3e8" stroke="#11683f" stroke-width="1.5"/>
+      <text x="545" y="115" text-anchor="middle" font-size="12.5" font-weight="600" fill="#11683f">OCUPADO</text>
+    </svg>
+    <figcaption><strong>Figura 2.</strong> Máquina de estados de ocupação. O estado CONFIRMANDO (tracejado) só existe quando a janela de confirmação está ativa; com ela desligada (padrão), o modelo é exatamente o da Figura 3 do TC I.</figcaption>
+  </figure>
+
+  <h2>Como os estados mudam</h2>
+  <ul>
+    <li><span class="estado estado--D">DESOCUPADO</span> → ao detectar movimento, a sala passa direto a <span class="estado estado--O">OCUPADO</span> (modelo do TC I).</li>
+    <li>Com a <strong>janela de confirmação</strong> ligada, o primeiro movimento leva a <span class="estado estado--C">CONFIRMANDO</span>: a ocupação só é aceita se houver N detecções dentro da janela; se a janela acabar antes, a detecção é descartada e a sala volta a <span class="estado estado--D">DESOCUPADO</span>. Isso reduz falsos positivos (por exemplo, alguém que só passou pela porta).</li>
+    <li>Em <span class="estado estado--O">OCUPADO</span>, cada movimento renova o prazo. Sem movimento por <code>tOcupado</code>, a sala volta a <span class="estado estado--D">DESOCUPADO</span>.</li>
+  </ul>
+
+  <h2>Regras dos atuadores</h2>
+  <div class="duas-colunas">
+    <div class="quadro"><span class="quadro__titulo">Luz (LED amarelo, representa um relé)</span><p>Acende quando a sala está <strong>ocupada</strong> e a luminosidade está <strong>abaixo do limiar</strong>.</p></div>
+    <div class="quadro"><span class="quadro__titulo">HVAC (LED azul, representa o comando IR)</span><p>Liga quando a sala está <strong>ocupada</strong> e a temperatura está <strong>acima da temperatura-alvo</strong>.</p></div>
+  </div>
+
+  <div class="bloco">
+  <h2>Parâmetros ajustáveis</h2>
+  <p>Todos podem ser alterados com o sistema rodando, pelo aplicativo (seção 5.2) ou por MQTT. Valores de fábrica:</p>
+  <table>
+    <thead><tr><th style="width:26%">Parâmetro</th><th style="width:14%">Padrão</th><th>Significado</th></tr></thead>
+    <tbody>
+      <tr><td><code>tOcupadoMs</code></td><td>30 s</td><td>Tempo sem movimento até a sala voltar a DESOCUPADO.</td></tr>
+      <tr><td><code>janelaConfMs</code></td><td>0 (desligada)</td><td>Duração da janela de confirmação. Com 0, não existe o estado CONFIRMANDO.</td></tr>
+      <tr><td><code>pulsosConf</code></td><td>1</td><td>Quantas detecções dentro da janela confirmam a ocupação.</td></tr>
+      <tr><td><code>luxLimiar</code></td><td>300 lux</td><td>Abaixo deste valor a luz pode acender.</td></tr>
+      <tr><td><code>tempAlvo</code></td><td>26 °C</td><td>Acima deste valor o HVAC pode ligar.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ============================ 4 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">4</span>Instalação</h1>
+
+  <p>Os instaladores ficam na página de <strong>Releases</strong> do repositório no GitHub (<code>github.com/mvacoimbra/tcc-automacao/releases</code>). O aplicativo não precisa de internet, Docker nem de nenhum outro programa para funcionar no modo Demo.</p>
+
+  <h2>macOS (Apple Silicon)</h2>
+  <ol class="passos">
+    <li>Baixe <code>tcc-automacao-0.1.0-macos-arm64.dmg</code> e abra o arquivo.</li>
+    <li>Arraste <strong>TCC Automacao</strong> para a pasta <strong>Aplicativos</strong>.</li>
+    <li>Na primeira vez, abra pelo menu de contexto: clique com o botão direito no app → <strong>Abrir</strong> → confirme.</li>
+    <li>Se o macOS disser que o app “está danificado” ou não pode ser aberto, rode no Terminal:<br><code>xattr -dr com.apple.quarantine "/Applications/TCC Automacao.app"</code></li>
+  </ol>
+
+  <h2>Windows (64 bits)</h2>
+  <ol class="passos">
+    <li>Baixe <code>tcc-automacao-0.1.0-windows-x64-setup.exe</code> e execute.</li>
+    <li>No aviso do SmartScreen, clique em <strong>Mais informações</strong> → <strong>Executar assim mesmo</strong>.</li>
+    <li>Siga o instalador; o aplicativo fica no menu Iniciar como <strong>TCC Automacao</strong>.</li>
+  </ol>
+
+  <div class="quadro quadro--aviso">
+    <span class="quadro__titulo">Por que os avisos de segurança?</span>
+    <p>Os instaladores não têm assinatura digital de desenvolvedor (um certificado pago, fora do escopo do trabalho), então o sistema operacional avisa antes de abrir. O programa é o mesmo que está no repositório; o aviso aparece só na primeira execução.</p>
+  </div>
+
+  <h2>Onde ficam os dados</h2>
+  <p>O histórico e as configurações ficam numa pasta do usuário e continuam lá entre uma abertura e outra:</p>
+  <ul>
+    <li>macOS: <code>~/Library/Application Support/@tcc/desktop/</code></li>
+    <li>Windows: <code>%APPDATA%\@tcc\desktop\</code></li>
+  </ul>
+  <p>Apagar essa pasta zera o histórico e volta às configurações de fábrica.</p>
+
+  <div class="bloco">
+  <h2>A partir do código-fonte</h2>
+  <p>Para desenvolvimento, com Node 24 e pnpm 11 instalados:</p>
+<pre><code>pnpm install
+pnpm --filter @tcc/desktop exec install-electron   # baixa o Electron
+pnpm dev            # dashboard em http://localhost:5173
+pnpm desktop:dev    # o mesmo, dentro da janela do aplicativo
+pnpm desktop:dist   # gera o instalador do sistema atual</code></pre>
+  </div>
+</section>
+
+<!-- ============================ 5 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">5</span>Usando o aplicativo</h1>
+
+  <p>Ao abrir, o aplicativo já sobe o broker, o banco e o dispositivo simulado <code>sala01</code> (modo Demo). No topo ficam o <strong>seletor de dispositivo</strong> e dois indicadores: a conexão com o servidor e a conexão com o broker MQTT. À esquerda, as três telas.</p>
+
+  <h2>5.1 Controladora</h2>
+  <p>A tela principal mostra o sistema em tempo real.</p>
+  <figure class="alta">
+    <img src="img/controladora.png" alt="Tela Controladora com o diagrama do circuito, a máquina de estados, os controles do modo Demo e o log MQTT">
+    <figcaption><strong>Figura 3.</strong> Controladora com a sala ocupada: luz (amarelo) e HVAC (azul) acesos, estado OCUPADO destacado na máquina de estados e as mensagens chegando no log MQTT.</figcaption>
+  </figure>
+  <ul>
+    <li><strong>Circuito:</strong> o ESP32 com os sensores à esquerda (PIR, DHT22, LDR) e os atuadores à direita (luz e HVAC), com os pinos reais do firmware. Os valores lidos aparecem em cada componente e os LEDs acendem conforme o estado.</li>
+    <li><strong>Máquina de estados:</strong> a Figura 2 ao vivo, com o estado atual destacado e, depois que o movimento para, a contagem regressiva até desocupar.</li>
+    <li><strong>Log MQTT:</strong> as últimas 200 mensagens trocadas (entrada e saída), com botões para <strong>pausar</strong> e <strong>limpar</strong>.</li>
+    <li>O selo no alto mostra o estado e há quanto tempo chegou a última leitura.</li>
+  </ul>
+
+  <h2>5.2 Ajustar parâmetros pelo diagrama</h2>
+  <p>Clique num componente do circuito para abrir o painel de ajuste dele:</p>
+  <table>
+    <thead><tr><th style="width:30%">Componente</th><th>O que ajusta</th></tr></thead>
+    <tbody>
+      <tr><td>PIR (presença)</td><td>Tempo até desocupar, janela de confirmação e detecções na janela</td></tr>
+      <tr><td>LDR e Luz</td><td>Limiar de luminosidade</td></tr>
+      <tr><td>DHT22 e HVAC</td><td>Temperatura-alvo</td></tr>
+    </tbody>
+  </table>
+  <p>Ao clicar em <strong>Aplicar</strong>, o aplicativo publica a nova configuração no tópico <code>…/config</code> do dispositivo, que passa a usá-la na hora, sem reiniciar. Isso vale tanto para o modo Demo quanto para o firmware real.</p>
+
+  <h2>5.3 Modo Demo</h2>
+  <p>Com o Demo ligado, a Controladora mostra o cartão <strong>Ambiente simulado</strong>:</p>
+  <ul>
+    <li><strong>Simular movimento (5 s)</strong> — o mesmo que clicar no PIR do diagrama: o sensor fica ativo por 5 segundos.</li>
+    <li><strong>Deslizantes</strong> de temperatura, umidade e luminosidade, para provocar as regras (por exemplo, subir a temperatura acima do alvo com a sala ocupada liga o HVAC).</li>
+  </ul>
+  <div class="quadro">
+    <span class="quadro__titulo">Roteiro rápido de demonstração</span>
+    <ol style="margin-bottom:0">
+      <li>Clique no PIR: a sala passa a OCUPADO; a luz acende porque há 120 lux (abaixo de 300) e o HVAC liga porque faz 28 °C (acima de 26).</li>
+      <li>Leve a luminosidade para 600 lux: a luz apaga, porque já há claridade suficiente.</li>
+      <li>Clique no DHT22 e mude a temperatura-alvo para 30 °C: o HVAC desliga.</li>
+      <li>Espere 30 s sem movimento: a sala volta a DESOCUPADO e tudo desliga.</li>
+    </ol>
+  </div>
+
+  <h2>5.4 Histórico</h2>
+  <figure class="alta">
+    <img src="img/historico.png" alt="Tela Histórico com gráficos de temperatura e luminosidade, faixas de ocupação, luz e HVAC e as métricas do período">
+    <figcaption><strong>Figura 4.</strong> Histórico: sensores com as linhas de temperatura-alvo e limiar de luz, faixas de ocupação e dos atuadores, e as métricas do período.</figcaption>
+  </figure>
+  <ul>
+    <li>Escolha o <strong>período</strong>: 15 min, 1 h, 24 h ou tudo. A tela se atualiza sozinha a cada 5 s.</li>
+    <li><strong>Sensores:</strong> temperatura e luminosidade no tempo, com a temperatura-alvo e o limiar de luz como linhas de referência.</li>
+    <li><strong>Ocupação e atuadores:</strong> quando a sala esteve ocupada e quando a luz e o HVAC estiveram ligados.</li>
+    <li><strong>Métricas do período:</strong> latência, perda de mensagens, tempo ligado e ocupação (definições na seção 7).</li>
+    <li><strong>Exportar CSV</strong> baixa as leituras do período para análise em planilha.</li>
+  </ul>
+
+  <h2>5.5 Configurações</h2>
+  <figure>
+    <img src="img/configuracoes.png" alt="Tela Configurações com a escolha do broker, o modo Demo, os endereços na rede local e as portas em uso">
+    <figcaption><strong>Figura 5.</strong> Configurações: broker e modo Demo à esquerda; endereços para abrir em outro dispositivo e portas em uso à direita.</figcaption>
+  </figure>
+  <ul>
+    <li><strong>Broker embutido</strong> (padrão): o aplicativo usa o próprio broker. É o modo do Demo.</li>
+    <li><strong>Broker externo</strong>: informe endereço, porta e raiz dos tópicos para receber de outro broker. O botão <strong>Preencher com o broker público do TCC</strong> coloca os dados usados pelo firmware no Wokwi.</li>
+    <li><strong>Modo Demo</strong>: liga ou desliga o dispositivo simulado (só funciona com o broker embutido).</li>
+    <li><strong>Salvar e aplicar</strong> troca tudo na hora, sem reiniciar o aplicativo.</li>
+  </ul>
+
+  <h2>5.6 Abrir no celular ou em outro computador</h2>
+  <p>O cartão <strong>Abrir em outro dispositivo</strong> lista endereços como <code>http://192.168.1.3:3000</code>. Qualquer aparelho na mesma rede local abre o mesmo painel pelo navegador, com os dados em tempo real. Se a porta 3000 (HTTP) ou a 1883 (MQTT) estiver ocupada por outro programa, o aplicativo usa outra porta livre e mostra qual nesta tela.</p>
+</section>
+
+<!-- ============================ 6 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">6</span>Firmware real no Wokwi</h1>
+
+  <p>O firmware do ESP32 roda no simulador Wokwi pela linha de comando (<code>wokwi-cli</code>). O ESP32 simulado só tem acesso à internet, por isso publica num <strong>broker público</strong> (<code>broker.hivemq.com</code>) com uma raiz de tópicos exclusiva do projeto (<code>tcc-unip-7f3a9c</code>).</p>
+
+  <h2>Passo a passo</h2>
+  <ol class="passos">
+    <li>Crie um token em <code>wokwi.com/dashboard/ci</code> e coloque no arquivo <code>.env</code> do repositório: <code>WOKWI_CLI_TOKEN=…</code></li>
+    <li>Compile o firmware: <code>pnpm firmware:build</code></li>
+    <li>No aplicativo, vá em <strong>Configurações</strong> → <strong>Externo</strong> → <strong>Preencher com o broker público do TCC</strong> → <strong>Salvar e aplicar</strong>.</li>
+    <li>Rode a simulação por 30 s: <code>pnpm firmware:sim</code>. A saída serial mostra <code>[mqtt] conectado</code>. <span class="suave">(O plano gratuito do Wokwi CLI tem cerca de 50 min por mês, por isso cada execução é curta.)</span></li>
+    <li>A Controladora passa a mostrar os valores do firmware (dispositivo <code>sala01</code>).</li>
+  </ol>
+
+  <figure class="media">
+    <img src="img/firmware-real.png" alt="Controladora recebendo dados do firmware real pelo broker externo">
+    <figcaption><strong>Figura 6.</strong> Aplicativo em modo externo recebendo o firmware real do Wokwi (indicador “Broker MQTT externo, conectado”). O LDR mostra 905 lux, o valor do sensor simulado no Wokwi, diferente dos 120 lux do modo Demo.</figcaption>
+  </figure>
+
+  <div class="quadro">
+    <span class="quadro__titulo">Também dá para usar o Wokwi pelo VS Code</span>
+    <p>Com as extensões PlatformIO e Wokwi, abra <code>firmware/diagram.json</code> e inicie a simulação: é possível clicar no PIR e mover os controles do DHT22 e do LDR com o mouse, e ver a reação no aplicativo.</p>
+  </div>
+
+</section>
+
+<!-- ============================ 7 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">7</span>Métricas e exportação</h1>
+
+  <p>As métricas são calculadas pelo backend para qualquer período e aparecem na tela Histórico. Elas alimentam o Capítulo 4.</p>
+
+  <table>
+    <thead><tr><th style="width:24%">Métrica</th><th>Como é calculada</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Latência fim a fim</strong></td><td>Hora de chegada no backend menos a hora em que o dispositivo gerou a leitura (<code>recebidoEm − ts</code>, relógio do dispositivo via NTP). Mostra mínima, média, p95, máxima e o número de amostras. Leituras sem horário (<code>ts = 0</code>, NTP ainda não sincronizado) ficam de fora.</td></tr>
+      <tr><td><strong>Perda de mensagens</strong></td><td>Cada mensagem tem um número de sequência (<code>seq</code>). Uma lacuna (de 5 para 8, por exemplo) conta 2 mensagens perdidas. Mostra recebidas, perdidas e a taxa.</td></tr>
+      <tr><td><strong>Tempo ligado</strong></td><td>Soma dos intervalos em que a luz e o HVAC ficaram ligados. Intervalos maiores que 10 s entre leituras não contam (dispositivo fora do ar).</td></tr>
+      <tr><td><strong>Ocupação</strong></td><td>Número de mudanças de estado e tempo total ocupado.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="quadro quadro--aviso">
+    <span class="quadro__titulo">Qual fonte usar no Capítulo 4</span>
+    <p>As métricas de desempenho (latência, perda) devem vir do <strong>firmware real no Wokwi</strong>, não do modo Demo: o simulador roda na mesma máquina, sem rede nem ruído de sensor. Note que a latência via Wokwi inclui a internet e a nuvem do simulador (em um teste, 2791 ms).</p>
+  </div>
+
+  <div class="bloco">
+  <h2>Formato do CSV</h2>
+  <p>O botão <strong>Exportar CSV</strong> gera um arquivo com uma linha por leitura. Booleanos vêm como 1/0; valores ausentes, vazios.</p>
+  <table>
+    <thead><tr><th style="width:24%">Coluna</th><th>Conteúdo</th></tr></thead>
+    <tbody>
+      <tr><td><code>recebidoEm</code></td><td>Hora de chegada no backend (milissegundos desde 1970)</td></tr>
+      <tr><td><code>dispositivo</code>, <code>seq</code>, <code>ts</code></td><td>Identificador, número de sequência e hora de geração no dispositivo</td></tr>
+      <tr><td><code>latenciaMs</code>, <code>perdidas</code></td><td>Latência da leitura e mensagens perdidas antes dela</td></tr>
+      <tr><td><code>estado</code>, <code>pir</code></td><td>Estado de ocupação e se o PIR detectava movimento</td></tr>
+      <tr><td><code>temperatura</code>, <code>umidade</code>, <code>lux</code></td><td>Leituras dos sensores</td></tr>
+      <tr><td><code>luz</code>, <code>hvac</code></td><td>Estado dos atuadores</td></tr>
+    </tbody>
+  </table>
+<pre><code>recebidoEm,dispositivo,seq,ts,latenciaMs,perdidas,estado,pir,temperatura,umidade,lux,luz,hvac
+1790041106121,sala01,0,1790041105834,287,0,DESOCUPADO,0,28,55,120,0,0</code></pre>
+  </div>
+</section>
+
+<!-- ============================ 8 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">8</span>Contrato MQTT</h1>
+
+  <p>Dispositivo e aplicativo conversam por dois tópicos. A <code>&lt;raiz&gt;</code> é <code>tcc</code> no broker embutido e <code>tcc-unip-7f3a9c</code> no broker público.</p>
+
+  <h2>Estado: dispositivo → aplicativo</h2>
+  <p>Tópico <code>&lt;raiz&gt;/&lt;dispositivo&gt;/estado</code>, a cada 2 s e a cada mudança:</p>
+<pre><code>{ "dispositivo": "sala01", "seq": 42, "ts": 1790000000000, "estado": "OCUPADO",
+  "pir": true, "temperatura": 28.0, "umidade": 55.0, "lux": 120.5,
+  "luz": true, "hvac": true }</code></pre>
+  <ul>
+    <li><code>ts</code>: hora da leitura (NTP), ou 0 se o relógio ainda não sincronizou.</li>
+    <li><code>seq</code>: contador crescente, usado para detectar mensagens perdidas.</li>
+    <li><code>temperatura</code> e <code>umidade</code> podem vir <code>null</code> quando o DHT22 falha numa leitura.</li>
+  </ul>
+
+  <h2>Configuração: aplicativo → dispositivo</h2>
+  <p>Tópico <code>&lt;raiz&gt;/&lt;dispositivo&gt;/config</code>. Todos os campos são opcionais; o dispositivo aplica só os que vierem:</p>
+<pre><code>{ "tOcupadoMs": 10000, "janelaConfMs": 10000, "pulsosConf": 2,
+  "luxLimiar": 300, "tempAlvo": 26 }</code></pre>
+  <p>Mensagens inválidas são descartadas pelo backend, com aviso no log, sem derrubar o sistema.</p>
+</section>
+
+<!-- ============================ 9 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">9</span>Decisões técnicas</h1>
+  <p>Toda divergência em relação ao modelo do TC I está registrada em <code>docs/decisoes.md</code>, no formato contexto → decisão → consequência, para virar texto do TCC. Resumo:</p>
+  <table>
+    <thead><tr><th style="width:8%">#</th><th style="width:34%">Decisão</th><th>Por quê</th></tr></thead>
+    <tbody>
+      <tr><td>D01</td><td>ESP32 simulado no Wokwi</td><td>Sem hardware físico disponível; o código é o mesmo de uma placa real.</td></tr>
+      <tr><td>D02</td><td>Máquina de estados isolada do hardware</td><td>Permite testá-la no computador, sem placa.</td></tr>
+      <tr><td>D03</td><td>Janela de confirmação opcional</td><td>Desligada, reproduz a Figura 3; ligada, reduz falsos positivos.</td></tr>
+      <tr><td>D04–D05</td><td>Tarefas em dois núcleos, com mutex</td><td>Comunicação não atrasa a decisão; a biblioteca MQTT não é segura entre tarefas.</td></tr>
+      <tr><td>D06</td><td>Restrições do ESP32/DHT22</td><td>LDR em pino ADC1 (o ADC2 para com Wi-Fi); DHT22 lido a cada 2 s.</td></tr>
+      <tr><td>D07</td><td>Comparar durações, não instantes</td><td>O contador de milissegundos estoura a cada ~49 dias; coberto por teste.</td></tr>
+      <tr><td>D08</td><td><code>ts</code> e <code>seq</code> no payload</td><td>Permitem medir latência e perda, comparáveis à literatura.</td></tr>
+      <tr><td>D09</td><td>Firmware no broker público</td><td>O Wokwi pela linha de comando só alcança a internet.</td></tr>
+      <tr><td>D10</td><td>Aplicativo desktop (Electron)</td><td>Abrir e demonstrar o sistema sem Docker nem instalação de serviços.</td></tr>
+      <tr><td>D11</td><td>Broker MQTT embutido</td><td>Dispensa o Mosquitto; o externo continua disponível.</td></tr>
+      <tr><td>D12</td><td>SQLite no lugar do InfluxDB</td><td>Banco embutido no próprio programa; o CSV atende às análises.</td></tr>
+      <tr><td>D13</td><td>Express + WebSocket dentro do app</td><td>Preserva a arquitetura do TC I e permite abrir no navegador e no celular.</td></tr>
+      <tr><td>D14</td><td>Modo Demo com a mesma máquina de estados</td><td>Demonstração fiel ao firmware, validada pelos mesmos 9 testes.</td></tr>
+      <tr><td>D15</td><td>Nome de arquivo do app sem acentos</td><td>Com acentos, o app empacotado para macOS não abria; o nome exibido continua “TCC Automação”.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============================ 10 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">10</span>Limitações</h1>
+  <p>Pontos a declarar no texto do TCC:</p>
+  <ul>
+    <li><strong>Simulação, sem hardware físico:</strong> os sensores do Wokwi não têm ruído real, e não há a rede local de um prédio.</li>
+    <li><strong>Comando do ar-condicionado representado por um LED:</strong> o Wokwi não simula infravermelho.</li>
+    <li><strong>Luminosidade sem calibração:</strong> a conversão do LDR para lux usa a fórmula do Wokwi.</li>
+    <li><strong>Sem realimentação luz → sensor:</strong> na simulação, acender a luz não aumenta a leitura do LDR; num ambiente real seria preciso histerese.</li>
+    <li><strong>Latência via Wokwi inclui a internet</strong> e a nuvem do simulador; não representa uma rede local.</li>
+    <li><strong>Segurança MQTT fora do escopo:</strong> brokers sem autenticação nem criptografia (seção 1.5 do TC I). No broker público, qualquer pessoa que conheça a raiz dos tópicos pode ler e publicar.</li>
+    <li><strong>Instaladores sem assinatura digital;</strong> o sistema operacional avisa na primeira abertura.</li>
+    <li><strong>Um dispositivo por vez na tela:</strong> o backend aceita vários, mas a interface mostra um seletor simples.</li>
+  </ul>
+</section>
+
+<!-- ============================ 11 ============================ -->
+<section class="capitulo">
+  <h1><span class="num">11</span>Para quem vai mexer no código</h1>
+
+  <h2>Estrutura do repositório</h2>
+<pre><code>firmware/          ESP32 + FreeRTOS (C++), simulado no Wokwi
+  include/occupancy_fsm.h   máquina de estados, sem hardware
+  src/main.cpp              as 4 tarefas
+  test/fsm_test.cpp         testes da máquina de estados
+apps/contrato/     formatos das mensagens e da API (zod)
+apps/backend/      broker, banco, REST, WebSocket, modo Demo
+apps/dashboard/    telas em React + Recharts
+apps/desktop/      aplicativo Electron e instaladores
+docs/              contexto do TCC, decisões, evidências e este guia</code></pre>
+
+  <h2>Comandos</h2>
+  <table>
+    <thead><tr><th style="width:36%">Comando</th><th>O que faz</th></tr></thead>
+    <tbody>
+      <tr><td><code>pnpm dev</code></td><td>Backend e dashboard em modo de desenvolvimento, no navegador</td></tr>
+      <tr><td><code>pnpm desktop:dev</code></td><td>O mesmo, dentro da janela do aplicativo</td></tr>
+      <tr><td><code>pnpm desktop:dist</code></td><td>Gera o instalador do sistema atual</td></tr>
+      <tr><td><code>pnpm typecheck</code> · <code>pnpm test</code></td><td>Checagem de tipos e testes (140 testes)</td></tr>
+      <tr><td><code>pnpm test:fsm</code></td><td>Os 9 testes da máquina de estados em C++</td></tr>
+      <tr><td><code>pnpm firmware:build</code> · <code>firmware:sim</code></td><td>Compila o firmware e roda 30 s no Wokwi</td></tr>
+      <tr><td><code>pnpm mqtt:sub:publico</code></td><td>Mostra as mensagens do broker público</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Publicar uma nova versão</h2>
+  <p>O GitHub Actions roda os testes a cada envio. Para gerar e publicar os instaladores, atualize a versão em <code>apps/desktop/package.json</code> e crie uma tag igual:</p>
+<pre><code>git tag v0.2.0 &amp;&amp; git push origin v0.2.0</code></pre>
+  <p>Em alguns minutos a página de Releases ganha o <code>.dmg</code> e o <code>.exe</code> da nova versão.</p>
+</section>
+
+</body>
+</html>
