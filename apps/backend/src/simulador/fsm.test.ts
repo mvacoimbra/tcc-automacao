@@ -65,6 +65,54 @@ describe('Com janela de confirmação (2 pulsos em 10 s)', () => {
   })
 })
 
+// Espelha o bloco "Variante D" de firmware/test/fsm_test.cpp, com os mesmos valores.
+describe('Confirmação por nível alto sustentado (variante D)', () => {
+  const c: FsmConfig = { tOcupadoMs: 30000, janelaConfMs: 10000, pulsosConf: 2, confirmacaoPorNivelMs: 7000 }
+
+  it('nivel: antes do limiar segue CONFIRMANDO', () => {
+    const s = novoFsmState()
+    rodar(s, c, true, { t: 0 }, 6900)
+    expect(s.estado).toBe('CONFIRMANDO')
+  })
+
+  it('nivel: PIR sustentado confirma', () => {
+    const s = novoFsmState()
+    const relogio: Relogio = { t: 0 }
+    rodar(s, c, true, relogio, 6900)
+    rodar(s, c, true, relogio, 200)
+    expect(s.estado).toBe('OCUPADO')
+  })
+
+  it('nivel: 5 s em alto nao confirma', () => {
+    const s = novoFsmState()
+    rodar(s, c, true, { t: 0 }, 5000) // retenção do PIR (5 s) é menor que o limiar
+    expect(s.estado).toBe('CONFIRMANDO')
+  })
+
+  it('nivel: sem confirmacao a janela expira', () => {
+    const s = novoFsmState()
+    const relogio: Relogio = { t: 0 }
+    rodar(s, c, true, relogio, 5000)
+    rodar(s, c, false, relogio, 6000)
+    expect(s.estado).toBe('DESOCUPADO')
+  })
+
+  it('nivel desativado: nivel alto nao confirma', () => {
+    const s = novoFsmState()
+    rodar(s, { ...c, confirmacaoPorNivelMs: 0 }, true, { t: 0 }, 9000)
+    expect(s.estado).toBe('CONFIRMANDO')
+  })
+
+  it('nivel desativado: janela expira com PIR alto', () => {
+    const s = novoFsmState()
+    const relogio: Relogio = { t: 0 }
+    const desativado: FsmConfig = { ...c, confirmacaoPorNivelMs: 0 }
+    rodar(s, desativado, true, relogio, 9000)
+    rodar(s, desativado, true, relogio, 2000)
+    expect(s.estado).toBe('DESOCUPADO')
+  })
+})
+
 describe('Estouro do millis() (~49,7 dias)', () => {
   const c: FsmConfig = { tOcupadoMs: 30000, janelaConfMs: 0, pulsosConf: 1 }
   const s = novoFsmState()

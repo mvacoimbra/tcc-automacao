@@ -152,7 +152,14 @@ describe('MensagemWs (servidor → cliente)', () => {
   })
 })
 
-const configCompleta = { tOcupadoMs: 30000, janelaConfMs: 0, pulsosConf: 1, luxLimiar: 300, tempAlvo: 26 }
+const configCompleta = {
+  tOcupadoMs: 30000,
+  janelaConfMs: 0,
+  pulsosConf: 1,
+  confirmacaoPorNivelMs: 0,
+  luxLimiar: 300,
+  tempAlvo: 26,
+}
 
 describe('ConfigDispositivo e EstadoDispositivo (GET /api/dispositivos/:id/estado)', () => {
   it('a config conhecida exige todos os campos (ao contrário do payload de config)', () => {

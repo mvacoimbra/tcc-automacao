@@ -2,11 +2,13 @@
 // em <raiz>/<dispositivo>/config os altera.
 import type { ConfigDispositivo, ConfigPayload } from '@tcc/contrato'
 
-// T_OCUPADO_MS, JANELA_CONF_MS, PULSOS_CONF, LUX_LIMIAR e TEMP_ALVO de firmware/include/config.h.
+// T_OCUPADO_MS, JANELA_CONF_MS, PULSOS_CONF, CONFIRMACAO_NIVEL_MS, LUX_LIMIAR e
+// TEMP_ALVO de firmware/include/config.h.
 export const CONFIG_PADRAO_DISPOSITIVO: ConfigDispositivo = {
   tOcupadoMs: 30000,
   janelaConfMs: 0,
   pulsosConf: 1,
+  confirmacaoPorNivelMs: 0,
   luxLimiar: 300,
   tempAlvo: 26,
 }
@@ -24,6 +26,9 @@ export function aplicarConfigFirmware(atual: ConfigDispositivo, bruto: unknown):
     tOcupadoMs: ehInteiro(m.tOcupadoMs, 0xffffffff) ? m.tOcupadoMs : atual.tOcupadoMs,
     janelaConfMs: ehInteiro(m.janelaConfMs, 0xffffffff) ? m.janelaConfMs : atual.janelaConfMs,
     pulsosConf: ehInteiro(m.pulsosConf, 0xff) ? m.pulsosConf : atual.pulsosConf,
+    confirmacaoPorNivelMs: ehInteiro(m.confirmacaoPorNivelMs, 0xffffffff)
+      ? m.confirmacaoPorNivelMs
+      : atual.confirmacaoPorNivelMs,
     luxLimiar: ehNumero(m.luxLimiar) ? m.luxLimiar : atual.luxLimiar,
     tempAlvo: ehNumero(m.tempAlvo) ? m.tempAlvo : atual.tempAlvo,
   }
@@ -35,6 +40,7 @@ export function mesclarConfig(atual: ConfigDispositivo, parcial: ConfigPayload):
     tOcupadoMs: parcial.tOcupadoMs ?? atual.tOcupadoMs,
     janelaConfMs: parcial.janelaConfMs ?? atual.janelaConfMs,
     pulsosConf: parcial.pulsosConf ?? atual.pulsosConf,
+    confirmacaoPorNivelMs: parcial.confirmacaoPorNivelMs ?? atual.confirmacaoPorNivelMs,
     luxLimiar: parcial.luxLimiar ?? atual.luxLimiar,
     tempAlvo: parcial.tempAlvo ?? atual.tempAlvo,
   }

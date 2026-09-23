@@ -50,6 +50,37 @@ int main() {
     CHECK(s.estado == Ocupacao::OCUPADO, "janela: 2 pulsos na janela -> OCUPADO");
   }
 
+  // --- Variante D: confirmação por nível alto sustentado (confirmacaoPorNivelMs) ---
+  // Uma pessoa parada mantém o PIR em alto sem gerar novas bordas; exigir N bordas
+  // a descarta (falso negativo). Com o limiar de nível, o tempo em alto confirma.
+  {
+    const FsmConfig c{30000, 10000, 2, 7000};
+    FsmState s;
+    uint32_t t = 0;
+    rodar(s, c, true, t, 6900);
+    CHECK(s.estado == Ocupacao::CONFIRMANDO, "nivel: antes do limiar segue CONFIRMANDO");
+    rodar(s, c, true, t, 200);
+    CHECK(s.estado == Ocupacao::OCUPADO, "nivel: PIR sustentado confirma");
+  }
+  {
+    const FsmConfig c{30000, 10000, 2, 7000};
+    FsmState s;
+    uint32_t t = 0;
+    rodar(s, c, true, t, 5000);  // retenção do PIR (5 s) é menor que o limiar
+    CHECK(s.estado == Ocupacao::CONFIRMANDO, "nivel: 5 s em alto nao confirma");
+    rodar(s, c, false, t, 6000);
+    CHECK(s.estado == Ocupacao::DESOCUPADO, "nivel: sem confirmacao a janela expira");
+  }
+  {
+    const FsmConfig c{30000, 10000, 2, 0};  // variante desativada
+    FsmState s;
+    uint32_t t = 0;
+    rodar(s, c, true, t, 9000);
+    CHECK(s.estado == Ocupacao::CONFIRMANDO, "nivel desativado: nivel alto nao confirma");
+    rodar(s, c, true, t, 2000);
+    CHECK(s.estado == Ocupacao::DESOCUPADO, "nivel desativado: janela expira com PIR alto");
+  }
+
   // --- Estouro do millis() (~49,7 dias) ---
   {
     const FsmConfig c{30000, 0, 1};

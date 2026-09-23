@@ -48,6 +48,15 @@ const CAMPOS: Record<Campo, DefinicaoCampo> = {
     passo: 1,
     ajuda: 'Quantas detecções dentro da janela confirmam a ocupação.',
   },
+  confirmacaoPorNivelMs: {
+    rotulo: 'Confirmar por presença contínua',
+    unidade: 's',
+    escala: 1000,
+    min: 0,
+    max: 600,
+    passo: 1,
+    ajuda: 'Tempo de PIR em alto que confirma sozinho, para quem fica parado. 0 desativa.',
+  },
   luxLimiar: {
     rotulo: 'Limiar de luminosidade',
     unidade: 'lux',
@@ -69,7 +78,7 @@ const CAMPOS: Record<Campo, DefinicaoCampo> = {
 }
 
 const PAINEIS: Record<AlvoAjuste, { titulo: string; campos: Campo[] }> = {
-  pir: { titulo: 'PIR (presença)', campos: ['tOcupadoMs', 'janelaConfMs', 'pulsosConf'] },
+  pir: { titulo: 'PIR (presença)', campos: ['tOcupadoMs', 'janelaConfMs', 'pulsosConf', 'confirmacaoPorNivelMs'] },
   ldr: { titulo: 'LDR (luminosidade)', campos: ['luxLimiar'] },
   luz: { titulo: 'Luz (relé)', campos: ['luxLimiar'] },
   dht: { titulo: 'DHT22 (temperatura)', campos: ['tempAlvo'] },

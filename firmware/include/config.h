@@ -27,6 +27,9 @@
 #define T_OCUPADO_MS   30000  // tempo sem movimento até DESOCUPADO
 #define JANELA_CONF_MS 0      // 0 = modelo da Figura 3 (sem confirmação)
 #define PULSOS_CONF    1      // detecções exigidas dentro da janela
+// Variante D (Cap. 4): confirma também com o PIR em alto por este tempo seguido.
+// 0 = desativada. Precisa ser maior que a retenção do PIR (5 s no Wokwi).
+#define CONFIRMACAO_NIVEL_MS 0
 #define LUX_LIMIAR     300.0f
 #define TEMP_ALVO      26.0f
 

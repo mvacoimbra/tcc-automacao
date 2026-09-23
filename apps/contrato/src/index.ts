@@ -37,6 +37,7 @@ export const ConfigPayload = z.strictObject({
   tOcupadoMs: z.uint32().optional(),
   janelaConfMs: z.uint32().optional(),
   pulsosConf: z.int().min(0).max(255).optional(), // uint8 no firmware
+  confirmacaoPorNivelMs: z.uint32().optional(), // variante D; 0 = desativada
   luxLimiar: z.number().min(0).optional(),
   tempAlvo: z.number().optional(),
 })
@@ -69,6 +70,7 @@ export const ConfigDispositivo = z.object({
   tOcupadoMs: z.uint32(),
   janelaConfMs: z.uint32(),
   pulsosConf: z.int().min(0).max(255),
+  confirmacaoPorNivelMs: z.uint32(),
   luxLimiar: z.number().min(0),
   tempAlvo: z.number(),
 })

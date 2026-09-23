@@ -99,7 +99,19 @@ describe('modo Demo ponta a ponta (relógio injetado)', () => {
 
     const r = await fetch(`${s.url}/api/dispositivos/sala01/config`, json({ tempAlvo: 30 }))
     expect(r.status).toBe(200)
-    expect(await r.json()).toEqual({ tOcupadoMs: 30000, janelaConfMs: 0, pulsosConf: 1, luxLimiar: 300, tempAlvo: 30 })
+    expect(await r.json()).toEqual({
+      tOcupadoMs: 30000,
+      janelaConfMs: 0,
+      pulsosConf: 1,
+      confirmacaoPorNivelMs: 0,
+      luxLimiar: 300,
+      tempAlvo: 30,
+    })
+
+    // Variante D (Cap. 4): o parâmetro chega ao dispositivo pela mesma rota.
+    const rNivel = await fetch(`${s.url}/api/dispositivos/sala01/config`, json({ confirmacaoPorNivelMs: 7000 }))
+    expect(rNivel.status).toBe(200)
+    expect((await rNivel.json()).confirmacaoPorNivelMs).toBe(7000)
 
     await esperar('HVAC desligado', () => estados().find((e) => e.estado === 'OCUPADO' && !e.hvac))
     // a publicação da config aparece no log MQTT como saída

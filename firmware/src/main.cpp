@@ -25,7 +25,7 @@ struct Saidas {
 static Leituras gLeituras{false, NAN, NAN, 0.0f};
 static Saidas gSaidas{};
 static FsmState gFsm{};
-static FsmConfig gCfg{T_OCUPADO_MS, JANELA_CONF_MS, PULSOS_CONF};
+static FsmConfig gCfg{T_OCUPADO_MS, JANELA_CONF_MS, PULSOS_CONF, CONFIRMACAO_NIVEL_MS};
 static float gLuxLimiar = LUX_LIMIAR;
 static float gTempAlvo = TEMP_ALVO;
 static volatile bool gMudou = false;  // força publicação imediata
@@ -145,10 +145,12 @@ static void onConfig(char*, byte* payload, unsigned int len) {
   if (doc["tOcupadoMs"].is<uint32_t>()) gCfg.tOcupadoMs = doc["tOcupadoMs"];
   if (doc["janelaConfMs"].is<uint32_t>()) gCfg.janelaConfMs = doc["janelaConfMs"];
   if (doc["pulsosConf"].is<uint8_t>()) gCfg.pulsosConf = doc["pulsosConf"];
+  if (doc["confirmacaoPorNivelMs"].is<uint32_t>()) gCfg.confirmacaoPorNivelMs = doc["confirmacaoPorNivelMs"];
   if (doc["luxLimiar"].is<float>()) gLuxLimiar = doc["luxLimiar"];
   if (doc["tempAlvo"].is<float>()) gTempAlvo = doc["tempAlvo"];
-  Serial.printf("[mqtt] config: tOcupado=%u janela=%u pulsos=%u lux=%.0f temp=%.1f\n",
-                gCfg.tOcupadoMs, gCfg.janelaConfMs, gCfg.pulsosConf, gLuxLimiar, gTempAlvo);
+  Serial.printf("[mqtt] config: tOcupado=%u janela=%u pulsos=%u nivel=%u lux=%.0f temp=%.1f\n",
+                gCfg.tOcupadoMs, gCfg.janelaConfMs, gCfg.pulsosConf, gCfg.confirmacaoPorNivelMs,
+                gLuxLimiar, gTempAlvo);
 }
 
 static void garantirConexao() {
