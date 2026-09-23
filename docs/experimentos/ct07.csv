@@ -1,0 +1,21 @@
+config;cenario;ativou;atraso_s;ocupado_s;falso_pos_s;falso_neg_s
+A janela desativada;S1 passagem isolada;sim;-0.0;35.1;35.1;0.0
+A janela desativada;S2 duas passagens (60 s);sim;-0.0;70.1;70.1;0.0
+A janela desativada;S3 permanencia, mov. continuo;sim;-0.0;115.1;35.1;0.0
+A janela desativada;S4 permanencia, mov. a cada 8 s;sim;-0.0;115.1;35.1;0.0
+A janela desativada;S5 permanencia, pessoa parada;sim;-0.0;35.1;0.1;45.0
+B janela 10 s, 2 pulsos;S1 passagem isolada;nao;-1.0;0.0;0.0;0.0
+B janela 10 s, 2 pulsos;S2 duas passagens (60 s);nao;-1.0;0.0;0.0;0.0
+B janela 10 s, 2 pulsos;S3 permanencia, mov. continuo;nao;-1.0;0.0;0.0;80.0
+B janela 10 s, 2 pulsos;S4 permanencia, mov. a cada 8 s;sim;8.0;107.1;35.0;7.9
+B janela 10 s, 2 pulsos;S5 permanencia, pessoa parada;nao;-1.0;0.0;0.0;80.0
+C janela 20 s, 2 pulsos;S1 passagem isolada;nao;-1.0;0.0;0.0;0.0
+C janela 20 s, 2 pulsos;S2 duas passagens (60 s);nao;-1.0;0.0;0.0;0.0
+C janela 20 s, 2 pulsos;S3 permanencia, mov. continuo;nao;-1.0;0.0;0.0;80.0
+C janela 20 s, 2 pulsos;S4 permanencia, mov. a cada 8 s;sim;8.0;107.1;35.0;7.9
+C janela 20 s, 2 pulsos;S5 permanencia, pessoa parada;nao;-1.0;0.0;0.0;80.0
+D janela 10 s, 2 pulsos ou 7 s em alto;S1 passagem isolada;nao;-1.0;0.0;0.0;0.0
+D janela 10 s, 2 pulsos ou 7 s em alto;S2 duas passagens (60 s);nao;-1.0;0.0;0.0;0.0
+D janela 10 s, 2 pulsos ou 7 s em alto;S3 permanencia, mov. continuo;sim;7.0;108.1;35.0;6.9
+D janela 10 s, 2 pulsos ou 7 s em alto;S4 permanencia, mov. a cada 8 s;sim;8.0;107.1;35.0;7.9
+D janela 10 s, 2 pulsos ou 7 s em alto;S5 permanencia, pessoa parada;nao;-1.0;0.0;0.0;80.0

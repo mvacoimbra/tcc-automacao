@@ -1,0 +1,1 @@
+{"latencia":{"minMs":0,"mediaMs":0.7651006711409396,"p95Ms":1,"maxMs":3,"amostras":149},"perda":{"recebidas":149,"perdidas":0,"taxa":0},"tempoLigado":{"luzMs":0,"hvacMs":0},"ocupacao":{"transicoes":0,"tempoOcupadoMs":0}}

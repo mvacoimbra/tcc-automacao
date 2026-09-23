@@ -1,0 +1,5 @@
+perfil;config;ocupacao_real_h;luz_ligada_h;linha_base_h;reducao_pct;desocupado_indevido_min
+densa;A sem janela;7.25;7.28;8.00;9.0;0.2
+densa;D bordas ou nivel sustentado;7.25;7.27;8.00;9.2;0.9
+esparsa;A sem janela;2.75;2.78;8.00;65.2;0.0
+esparsa;D bordas ou nivel sustentado;2.75;2.77;8.00;65.3;0.5
